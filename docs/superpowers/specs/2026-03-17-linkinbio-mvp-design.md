@@ -134,13 +134,6 @@ releases {
     "tidal": "https://...",
     "deezer": "https://..."
   },
-  "custom_platform_links": {
-    "spotify": "https://...",
-    "apple_music": "https://...",
-    "youtube_music": "https://...",
-    "tidal": "https://...",
-    "deezer": "https://..."
-  },
   "resolution_status": {
     "spotify": "resolved",
     "apple_music": "resolved|pending|failed",
@@ -152,11 +145,9 @@ releases {
 ```
 
 **Notes:**
-- `platform_links`: Auto-resolved links from ISRC resolution service
-- `custom_platform_links`: Manual overrides entered by artist in dashboard
+- `platform_links`: Auto-resolved links from link matcher utility API
 - `resolution_status`: Tracks resolution status for each platform
-- Display priority: `custom_platform_links` > `platform_links` > Spotify fallback
-- All platforms are implemented in Phase 1 (MVP)
+- All platforms are implemented in Phase 1 (MVP) via automated link matching
 - **Retry Cadence:** Failed resolutions retry after 24 hours, successful resolutions refresh weekly
 
 #### `sessions`
@@ -351,31 +342,43 @@ Distinguish between official releases and compilations:
 
 **Phase 1 (MVP): All Streaming Platform Links**
 
-Since Spotify doesn't provide direct links to other platforms, we'll use a hybrid approach:
+Since Spotify doesn't provide direct links to other platforms, we'll build a custom link matcher utility API route.
 
-1. **Primary: ISRC-Based Resolution (when available)**
+**Link Matcher Utility API:**
+- **Route:** `/api/utils/match-links` (internal utility, not public)
+- **Input:** Spotify track ID or ISRC code
+- **Output:** JSON object with direct URLs for all platforms
+
+**Resolution Strategy:**
+
+1. **ISRC-Based Matching (Primary)**
    - Extract ISRC from Spotify API
    - Query MusicBrainz API for ISRC metadata
    - Use ISRC to find equivalent tracks on Apple Music, Tidal, Deezer, YouTube Music
    - Cache results in Cloudflare KV
 
-2. **Fallback: Manual Link Input (artist-provided)**
-   - Dashboard allows artists to paste direct URLs for each platform
-   - Stored in `releases.tracks.custom_platform_links`
-   - Displayed if auto-resolution fails
+2. **Fuzzy Matching Fallback (Secondary)**
+   - If ISRC unavailable, use track name + artist name + album name
+   - Query each platform's API with metadata
+   - Use fuzzy matching algorithms (Levenshtein distance)
+   - Cache successful matches
 
-3. **Fallback: Spotify-Only Display**
-   - If both auto-resolution and manual links fail, show only Spotify button
-   - Display "More platforms coming soon" message
+3. **Direct URL Construction (Tertiary)**
+   - For platforms where API access is limited (Tidal), construct URLs using known patterns
+   - Example: `https://tidal.com/browse/track/{track_id}`
 
 **Implementation Details:**
 - **MusicBrainz API:** Free, no API key required for basic searches
-- **Apple Music:** Use MusicKit JS (client-side) or MusicKit API (requires Apple Developer account)
-- **Tidal:** Use Tidal API (requires partner access) or direct artist/track URL construction
+- **Apple Music:** Use MusicKit API (requires Apple Developer account)
+- **Tidal:** Use Tidal API (partner access) or direct URL construction
 - **Deezer:** Use Deezer API (free tier available)
 - **YouTube Music:** Use YouTube Data API (search by track name/artist)
 
-**Note on Tidal:** Web scraping is not permitted due to ToS restrictions. We'll use official API if available, or construct direct URLs using track/artist slugs (e.g., `tidal.com/artist/track`).
+**Key Points:**
+- **No manual link input:** The link matcher utility automatically resolves all platform links
+- **Internal API route:** `/api/utils/match-links` is a server-side utility, not exposed to artists
+- **Caching:** All resolved links cached in Cloudflare KV for performance
+- **Background processing:** New releases are processed asynchronously
 
 **Phase 2 (Post-MVP): Enhanced Resolution**
 - Add more platforms (SoundCloud, Bandcamp, etc.)
@@ -403,16 +406,14 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 - **Social Links:** Manage all social media URLs:
   - Facebook, X (Twitter), Instagram, TikTok, YouTube, SoundCloud
   - Apple Music, Tidal (streaming platforms)
-- **Manual Platform Links:** Input custom links for Apple Music, Tidal, Deezer, YouTube Music (Phase 1)
 - **Newsletter:** Configure signup URL
 - **Upgrade Prompts:** Toggle banner visibility
 - **Basic Analytics:** Page view counts, unique visitors, top tracks (Phase 5)
 
-**Manual Link Input (Phase 1):**
-- Each track in dashboard shows "Custom Links" section
-- Artist can paste direct URLs for each platform
-- Overrides auto-resolved links if provided
-- Stored in `releases.tracks.custom_platform_links` JSONB field (nested within release)
+**Link Resolution Status (Phase 1):**
+- Dashboard displays resolution status for each track/platform
+- Artists can view which platforms successfully resolved
+- No manual input required - all links resolved automatically via link matcher utility
 
 ### 6.2 Routes
 
@@ -467,13 +468,13 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 - Create Nuxt server routes for `/[slug]`
 - Build artist page components (hero, releases, social links)
 - Implement Spotify API integration
-- Build ISRC-based resolution service (MusicBrainz API)
-- Implement platform link resolution (Apple Music, Tidal, Deezer, YouTube Music)
+- Build link matcher utility API (`/api/utils/match-links`)
+- Implement platform link resolution via MusicBrainz API (ISRC-based)
 - Add Cloudflare KV caching for resolved links
 
 ### Phase 3: Artist Dashboard
 - Build authentication (Supabase Auth)
-- Create settings form (social links, bio, manual platform links)
+- Create settings form (social links, bio)
 - Implement data persistence
 
 ### Phase 4: Advanced Features
@@ -512,14 +513,14 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 
 - **Per-Platform Status Tracking:** Use `resolution_status` field to track each platform independently (resolved, pending, failed)
 - **UI Display Logic:**
-  - Show platform button if status is "resolved" or custom link exists
-  - Hide platform button if status is "failed" and no custom link
+  - Show platform button if status is "resolved"
+  - Hide platform button if status is "failed"
   - Show "More platforms coming soon" placeholder only if ALL non-Spotify platforms failed
 - **Error Recovery:**
   - Retry failed resolutions after 24 hours (background job)
   - Log failures to Cloudflare Workers analytics
   - Dashboard shows resolution status for each track/platform
-- **Manual Override:** Artist can add custom links in dashboard, which bypasses resolution status
+- **No Manual Input:** All links resolved automatically via link matcher utility
 
 ---
 
