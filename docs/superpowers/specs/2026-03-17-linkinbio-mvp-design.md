@@ -88,8 +88,9 @@ artist_settings {
   id: uuid (PK, auto-generated)
   artist_id: uuid (FK → artists.id, unique)
   social_facebook: string (URL)
-  social_twitter: string (URL)
+  social_twitter: string (URL)          -- X (formerly Twitter)
   social_instagram: string (URL)
+  social_tiktok: string (URL)
   social_youtube: string (URL)
   social_soundcloud: string (URL)
   social_apple_music: string (URL)
@@ -229,7 +230,7 @@ sessions {
 
 ┌─────────────────────────────────────────────────────────────┐
 │ SOCIAL LINKS                                                │
-│ [FB] [TW] [IG] [YT] [SC] [AM] [TD]                          │
+│ [FB] [X] [IG] [TT] [YT] [SC] [AM] [TD]                      │
 └─────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────┐
@@ -354,7 +355,9 @@ Distinguish between official releases and compilations:
 
 - **Login:** Email/password via Supabase Auth
 - **Profile Settings:** Edit bio, hero image, artist name
-- **Social Links:** Manage all social media URLs
+- **Social Links:** Manage all social media URLs:
+  - Facebook, X (Twitter), Instagram, TikTok, YouTube, SoundCloud
+  - Apple Music, Tidal (streaming platforms)
 - **Manual Platform Links:** Input custom links for Apple Music, Tidal, Deezer, YouTube Music (Phase 1)
 - **Newsletter:** Configure signup URL
 - **Upgrade Prompts:** Toggle banner visibility
