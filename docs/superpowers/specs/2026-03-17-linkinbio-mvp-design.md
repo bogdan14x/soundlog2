@@ -458,25 +458,28 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 - Configure Drizzle ORM
 - Set up Cloudflare KV namespace
 
-### Phase 2: Artist Page Display
+### Phase 2: Artist Page Display + Cross-Platform Links
 - Create Nuxt server routes for `/[slug]`
 - Build artist page components (hero, releases, social links)
 - Implement Spotify API integration
-- Add Cloudflare KV caching
+- Build ISRC-based resolution service (MusicBrainz API)
+- Implement platform link resolution (Apple Music, Tidal, Deezer, YouTube Music)
+- Add Cloudflare KV caching for resolved links
 
 ### Phase 3: Artist Dashboard
 - Build authentication (Supabase Auth)
-- Create settings form (social links, bio, etc.)
+- Create settings form (social links, bio, manual platform links)
 - Implement data persistence
 
 ### Phase 4: Advanced Features
 - Tour dates extraction (Spotify page parsing)
-- Cross-platform link resolution (ISRC-based)
 - Radio shows detection
+- Background refresh for link resolution
 
 ### Phase 5: Monetization & Polish
 - Add branding & upgrade prompts
 - Polish UI/UX
+- Testing & deployment
 - Testing & deployment
 
 ---
