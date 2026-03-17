@@ -133,9 +133,20 @@ releases {
     "youtube_music": "https://...",
     "tidal": "https://...",
     "deezer": "https://..."
+  },
+  "custom_platform_links": {
+    "apple_music": "https://...",
+    "tidal": "https://...",
+    "youtube_music": "https://...",
+    "deezer": "https://..."
   }
 }
 ```
+
+**Notes:**
+- `platform_links`: Auto-resolved links from Spotify API or resolution service
+- `custom_platform_links`: Manual overrides entered by artist in dashboard
+- Display priority: `custom_platform_links` > `platform_links` > Spotify fallback
 
 #### `sessions`
 Stores dashboard login sessions.
@@ -164,7 +175,7 @@ sessions {
 2. **Latest Release (Featured)**
    - Album artwork (large)
    - Release title & date
-   - "Listen Now" buttons (Spotify, Apple, YT, Tidal, Deezer)
+   - "Listen Now" buttons (Spotify primary, others coming soon in Phase 2)
 
 3. **More Releases**
    - Grid of album covers (latest 6-8 releases)
@@ -201,7 +212,7 @@ sessions {
 ┌─────────────────────────────────────────────────────────────┐
 │ LATEST RELEASE                                              │
 │ [Album Artwork]    Release Title (Date)                     │
-│ [Listen on Spotify] [Apple Music] [YouTube] [Tidal]        │
+│ [Listen on Spotify] (More platforms coming soon)            │
 └─────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────┐
@@ -346,6 +357,8 @@ Distinguish between official releases and compilations:
 - **Key:** `track:[isrc]:platforms` or `track:[spotify_id]:platforms`
 - **TTL:** 24 hours (tracks don't change platforms frequently)
 - **Refresh:** Background job checks for updates weekly
+- **Storage:** Resolved links stored in `releases.tracks.platform_links` JSONB field
+- **Manual Overrides:** Stored in `releases.tracks.custom_platform_links` JSONB field (artist-edited)
 
 ---
 
@@ -367,7 +380,7 @@ Distinguish between official releases and compilations:
 - Each track in dashboard shows "Custom Links" section
 - Artist can paste direct URLs for each platform
 - Overrides auto-resolved links if provided
-- Stored in `tracks` JSONB field as `custom_platform_links`
+- Stored in `releases.tracks.custom_platform_links` JSONB field (nested within release)
 
 ### 6.2 Routes
 
@@ -404,8 +417,9 @@ Distinguish between official releases and compilations:
 ### 7.3 Implementation
 
 - Feature flag in `artist_settings.upgrade_prompt`
-- Toggle via dashboard
-- Free tier always shows upgrade prompt
+- Toggle available in dashboard (Pro tier only)
+- Free tier always shows upgrade prompt (cannot be disabled)
+- Pro tier can hide upgrade prompt via toggle
 
 ---
 
