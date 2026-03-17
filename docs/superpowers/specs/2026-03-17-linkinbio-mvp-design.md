@@ -135,18 +135,28 @@ releases {
     "deezer": "https://..."
   },
   "custom_platform_links": {
+    "spotify": "https://...",
     "apple_music": "https://...",
-    "tidal": "https://...",
     "youtube_music": "https://...",
+    "tidal": "https://...",
     "deezer": "https://..."
+  },
+  "resolution_status": {
+    "spotify": "resolved",
+    "apple_music": "resolved|pending|failed",
+    "youtube_music": "resolved|pending|failed",
+    "tidal": "resolved|pending|failed",
+    "deezer": "resolved|pending|failed"
   }
 }
 ```
 
 **Notes:**
-- `platform_links`: Auto-resolved links from Spotify API or resolution service
+- `platform_links`: Auto-resolved links from ISRC resolution service
 - `custom_platform_links`: Manual overrides entered by artist in dashboard
+- `resolution_status`: Tracks resolution status for each platform
 - Display priority: `custom_platform_links` > `platform_links` > Spotify fallback
+- All platforms are implemented in Phase 1 (MVP)
 
 #### `sessions`
 Stores dashboard login sessions.
@@ -175,7 +185,7 @@ sessions {
 2. **Latest Release (Featured)**
    - Album artwork (large)
    - Release title & date
-   - "Listen Now" buttons (Spotify primary, others coming soon in Phase 2)
+   - "Listen Now" buttons (Spotify, Apple Music, YouTube Music, Tidal, Deezer)
 
 3. **More Releases**
    - Grid of album covers (latest 6-8 releases)
@@ -212,7 +222,7 @@ sessions {
 ┌─────────────────────────────────────────────────────────────┐
 │ LATEST RELEASE                                              │
 │ [Album Artwork]    Release Title (Date)                     │
-│ [Listen on Spotify] (More platforms coming soon)            │
+│ [Spotify] [Apple Music] [YouTube] [Tidal] [Deezer]          │
 └─────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────┐
@@ -336,21 +346,38 @@ Distinguish between official releases and compilations:
    - Match by (track name + artist name + album name)
    - Use fuzzy matching for variations
 
-### 5.2 Implementation Plan
+### 5.2 Implementation Plan (All Platforms in MVP)
 
-**Phase 1 (MVP): Spotify-Only Links**
-- Display "Listen on Spotify" button for all tracks
-- Add manual override in dashboard for custom links
+**Phase 1 (MVP): All Streaming Platform Links**
 
-**Phase 2 (Post-MVP): Cross-Platform Resolution**
-- Build serverless function for ISRC resolution
-- Cache results in Cloudflare KV (TTL: 24 hours)
-- Background job for batch resolution of new releases
+Since Spotify doesn't provide direct links to other platforms, we'll use a hybrid approach:
 
-**Phase 3 (Future): Enhanced Resolution**
+1. **Primary: ISRC-Based Resolution (when available)**
+   - Extract ISRC from Spotify API
+   - Query MusicBrainz API for ISRC metadata
+   - Use ISRC to find equivalent tracks on Apple Music, Tidal, Deezer, YouTube Music
+   - Cache results in Cloudflare KV
+
+2. **Fallback: Manual Link Input (artist-provided)**
+   - Dashboard allows artists to paste direct URLs for each platform
+   - Stored in `releases.tracks.custom_platform_links`
+   - Displayed if auto-resolution fails
+
+3. **Fallback: Spotify-Only Display**
+   - If both auto-resolution and manual links fail, show only Spotify button
+   - Display "More platforms coming soon" message
+
+**Implementation Details:**
+- **MusicBrainz API:** Free, no API key required for basic searches
+- **Apple Music:** Use MusicKit JS (client-side) or MusicKit API (requires Apple Developer account)
+- **Tidal:** Use Tidal API (requires partner access) or web scraping fallback
+- **Deezer:** Use Deezer API (free tier available)
+- **YouTube Music:** Use YouTube Data API (search by track name/artist)
+
+**Phase 2 (Post-MVP): Enhanced Resolution**
 - Add more platforms (SoundCloud, Bandcamp, etc.)
+- Background job for batch resolution of new releases
 - Smart fallback algorithms
-- Manual link input in dashboard
 
 ### 5.3 Caching Strategy
 
