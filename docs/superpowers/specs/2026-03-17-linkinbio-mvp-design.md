@@ -393,7 +393,7 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
   - Successful resolutions: Weekly background job
   - Failed resolutions: Retry after 24 hours (exponential backoff)
 - **Storage:** Resolved links stored in `releases.tracks.platform_links` JSONB field
-- **Manual Overrides:** Stored in `releases.tracks.custom_platform_links` JSONB field (artist-edited)
+- **Note:** All links resolved automatically via link matcher utility (no manual input)
 
 ---
 
@@ -406,6 +406,7 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
 - **Social Links:** Manage all social media URLs:
   - Facebook, X (Twitter), Instagram, TikTok, YouTube, SoundCloud
   - Apple Music, Tidal (streaming platforms)
+- **Link Resolution Status:** View status of platform link resolution (no manual override in MVP)
 - **Newsletter:** Configure signup URL
 - **Upgrade Prompts:** Toggle banner visibility
 - **Basic Analytics:** Page view counts, unique visitors, top tracks (Phase 5)
