@@ -480,7 +480,6 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 - Add branding & upgrade prompts
 - Polish UI/UX
 - Testing & deployment
-- Testing & deployment
 
 ---
 
@@ -506,9 +505,16 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 
 ### 9.4 Cross-Platform Resolution Failures
 
-- Show Spotify link as primary
-- Display "More platforms coming soon" message
-- Allow manual override in dashboard
+- **Per-Platform Status Tracking:** Use `resolution_status` field to track each platform independently (resolved, pending, failed)
+- **UI Display Logic:**
+  - Show platform button if status is "resolved" or custom link exists
+  - Hide platform button if status is "failed" and no custom link
+  - Show "More platforms coming soon" placeholder only if ALL non-Spotify platforms failed
+- **Error Recovery:**
+  - Retry failed resolutions after 24 hours (background job)
+  - Log failures to Cloudflare Workers analytics
+  - Dashboard shows resolution status for each track/platform
+- **Manual Override:** Artist can add custom links in dashboard, which bypasses resolution status
 
 ---
 
