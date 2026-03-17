@@ -244,17 +244,29 @@ sessions {
 
 ### 4.1 Data Fetching Strategy
 
-**On-Demand Fetch with Cloudflare KV Caching:**
+**On-Demand Fetch with Cloudflare KV Caching + Background Refresh:**
 
-1. User visits `/artist/[slug]`
-2. Check Cloudflare KV: `spotify:artist:[spotify_id]:releases`
-3. If cache miss → fetch from Spotify API
-4. Store in Supabase (backup) + Cloudflare KV (fast access)
-5. Set KV TTL to 1 hour (3600 seconds)
+1. **User Request Flow:**
+   - User visits `/artist/[slug]`
+   - Check Cloudflare KV: `spotify:artist:[spotify_id]:releases`
+   - If cache miss → fetch from Spotify API
+   - Store in Supabase (backup) + Cloudflare KV (fast access)
+   - Set KV TTL to 1 hour (3600 seconds)
+
+2. **Background Refresh (Pre-warm Cache):**
+   - Cloudflare Worker cron job runs every 6 hours
+   - Refreshes cache for popular artists (top 100 by page views)
+   - Prevents rate limit bottlenecks during peak traffic
+   - Updates `updated_at` timestamp in Supabase
 
 **Cache Key Format:**
 - `spotify:artist:[spotify_id]:releases` - Release data
 - `spotify:artist:[spotify_id]:profile` - Artist profile data
+
+**Rate Limit Protection:**
+- Implement exponential backoff for Spotify API calls
+- Queue system for batch processing during background refresh
+- Monitor API usage via Cloudflare Workers analytics
 
 ### 4.2 Tour Dates Extraction
 
@@ -265,7 +277,14 @@ Since Spotify doesn't provide tour dates via API, we parse the artist's Spotify 
 3. Parses tour dates from the JSON structure
 4. Caches results in Cloudflare KV with TTL of 24 hours
 
-**Note:** This is fragile and may break if Spotify changes their page structure. We'll monitor and update as needed.
+**Error Handling & Robustness:**
+- **Try-Catch Wrapper:** If parsing fails, log error and hide tour dates section
+- **Fallback:** If JSON extraction fails, attempt regex pattern matching for tour data
+- **Monitoring:** Log all parsing failures to Cloudflare Workers analytics
+- **Dashboard Fallback:** Artists can manually enter tour dates in dashboard (Phase 3 feature)
+- **Health Check:** Daily automated test to verify parsing logic still works
+
+**Note:** This is a fragile external dependency. Implementation plan must include comprehensive error handling and logging.
 
 ### 4.3 Radio Shows Detection
 
@@ -336,9 +355,16 @@ Distinguish between official releases and compilations:
 - **Login:** Email/password via Supabase Auth
 - **Profile Settings:** Edit bio, hero image, artist name
 - **Social Links:** Manage all social media URLs
+- **Manual Platform Links:** Input custom links for Apple Music, Tidal, Deezer, YouTube Music (Phase 1)
 - **Newsletter:** Configure signup URL
 - **Upgrade Prompts:** Toggle banner visibility
 - **Basic Analytics:** Page view counts (future)
+
+**Manual Link Input (Phase 1):**
+- Each track in dashboard shows "Custom Links" section
+- Artist can paste direct URLs for each platform
+- Overrides auto-resolved links if provided
+- Stored in `tracks` JSONB field as `custom_platform_links`
 
 ### 6.2 Routes
 
