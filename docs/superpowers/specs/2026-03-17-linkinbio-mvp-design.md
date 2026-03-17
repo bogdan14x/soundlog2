@@ -157,6 +157,7 @@ releases {
 - `resolution_status`: Tracks resolution status for each platform
 - Display priority: `custom_platform_links` > `platform_links` > Spotify fallback
 - All platforms are implemented in Phase 1 (MVP)
+- **Retry Cadence:** Failed resolutions retry after 24 hours, successful resolutions refresh weekly
 
 #### `sessions`
 Stores dashboard login sessions.
@@ -370,9 +371,11 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 **Implementation Details:**
 - **MusicBrainz API:** Free, no API key required for basic searches
 - **Apple Music:** Use MusicKit JS (client-side) or MusicKit API (requires Apple Developer account)
-- **Tidal:** Use Tidal API (requires partner access) or web scraping fallback
+- **Tidal:** Use Tidal API (requires partner access) or direct artist/track URL construction
 - **Deezer:** Use Deezer API (free tier available)
 - **YouTube Music:** Use YouTube Data API (search by track name/artist)
+
+**Note on Tidal:** Web scraping is not permitted due to ToS restrictions. We'll use official API if available, or construct direct URLs using track/artist slugs (e.g., `tidal.com/artist/track`).
 
 **Phase 2 (Post-MVP): Enhanced Resolution**
 - Add more platforms (SoundCloud, Bandcamp, etc.)
@@ -382,8 +385,10 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 ### 5.3 Caching Strategy
 
 - **Key:** `track:[isrc]:platforms` or `track:[spotify_id]:platforms`
-- **TTL:** 24 hours (tracks don't change platforms frequently)
-- **Refresh:** Background job checks for updates weekly
+- **TTL:** 24 hours for failed resolutions, 7 days for successful resolutions
+- **Refresh:**
+  - Successful resolutions: Weekly background job
+  - Failed resolutions: Retry after 24 hours (exponential backoff)
 - **Storage:** Resolved links stored in `releases.tracks.platform_links` JSONB field
 - **Manual Overrides:** Stored in `releases.tracks.custom_platform_links` JSONB field (artist-edited)
 
@@ -401,7 +406,7 @@ Since Spotify doesn't provide direct links to other platforms, we'll use a hybri
 - **Manual Platform Links:** Input custom links for Apple Music, Tidal, Deezer, YouTube Music (Phase 1)
 - **Newsletter:** Configure signup URL
 - **Upgrade Prompts:** Toggle banner visibility
-- **Basic Analytics:** Page view counts (future)
+- **Basic Analytics:** Page view counts, unique visitors, top tracks (Phase 5)
 
 **Manual Link Input (Phase 1):**
 - Each track in dashboard shows "Custom Links" section
