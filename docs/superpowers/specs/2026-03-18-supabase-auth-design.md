@@ -135,13 +135,18 @@ If has artist → Redirect to Dashboard
 ### Security Considerations
 
 1. **Token Validation**: All API requests validate Supabase access tokens
-2. **Artist Ownership**: Users can only edit their own artist profile
+2. **Artist Ownership**: Users can only edit their own artist profile (enforced via RLS)
 3. **Session Management**: Automatic token refresh prevents session expiry
 4. **CORS**: Proper CORS configuration for Supabase callbacks
+5. **Row-Level Security (RLS)**: Enable RLS on `artists` and `artist_settings` tables
+   - Policy: Users can only CRUD their own artist data
+   - Policy: Users can only CRUD their own artist settings
+6. **Service Role Key**: Only use on server-side, never expose to client
+7. **Rate Limiting**: Implement rate limiting for Magic Link requests
 
 ### Error Handling
 
-1. **Auth Failures**: Redirect to login with error message
+1. **Auth Failures**: Redirect to login with error message (e.g., "Magic link expired", "OAuth permission denied")
 2. **Missing Artist**: Redirect to onboarding wizard
 3. **Invalid Token**: Clear session and redirect to login
 4. **API Errors**: Display user-friendly error messages
@@ -202,9 +207,23 @@ If has artist → Redirect to Dashboard
 
 ## Dependencies
 
-- `@supa-kit/auth-ui-vue` - Pre-built Auth UI components
+- `@supa-kit/auth-ui-vue` - Pre-built Auth UI components (verify Nuxt 3/4 compatibility)
 - `@supabase/supabase-js` - Already in package.json
 - `nuxt` - Already configured
+
+## Environment Variables
+
+Required Supabase environment variables:
+- `SUPABASE_URL` - Supabase project URL
+- `SUPABASE_ANON_KEY` - Public anon key for client-side auth
+- `SUPABASE_SERVICE_ROLE_KEY` - Secret key for server-side operations (never expose to client)
+
+## Data Migration
+
+For existing mocked users:
+1. Manual migration script to link existing artist profiles to new Supabase users
+2. Provide admin tool for manual linking if needed
+3. Clear communication to users about the migration
 
 ## Risks & Mitigations
 
@@ -212,8 +231,9 @@ If has artist → Redirect to Dashboard
 |------|------------|
 | Supabase configuration errors | Thorough testing in development environment |
 | OAuth callback failures | Proper error handling and user feedback |
-| Onboarding abandonment | Optional save progress, clear UX guidance |
+| Onboarding abandonment | Optional save progress (store in local storage), clear UX guidance |
 | Session management issues | Comprehensive token refresh logic |
+| `@supa-kit/auth-ui-vue` compatibility | Verify compatibility with Nuxt 3/4 before integration |
 
 ## References
 
