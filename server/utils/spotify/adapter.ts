@@ -27,19 +27,19 @@ export interface InternalArtistData {
 }
 
 // Helper to normalize scraped releases
-export function normalizeScrapedReleases(releases: any[], country: string): InternalArtistData['releases'] {
+export function normalizeScrapedReleases(releases: any[]): InternalArtistData['releases'] {
   return releases.map((release) => {
     const date = release.date?.year 
       ? `${release.date.year}${release.date.month ? `-${release.date.month.toString().padStart(2, '0')}` : ''}${release.date.day ? `-${release.date.day.toString().padStart(2, '0')}` : ''}`
       : 'Unknown'
     
     return {
-      id: release.uri.split(':')[2],
+      id: release.uri?.split(':')[2] ?? '',
       name: release.name,
       date,
       coverImage: release.coverArt?.sources?.[0]?.url || '',
-      type: release.type.toLowerCase() as 'album' | 'single' | 'compilation',
-      spotifyUrl: `https://open.spotify.com/album/${release.uri.split(':')[2]}`,
+      type: release.type?.toLowerCase() as 'album' | 'single' | 'compilation',
+      spotifyUrl: `https://open.spotify.com/album/${release.uri?.split(':')[2] ?? ''}`,
       isAvailableInCurrentMarket: true // Scraped data doesn't include market info
     }
   })
@@ -106,6 +106,9 @@ export class SpotifyDataOrchestrator {
   }
 
   private normalizeScrapedData(data: any, country: string): InternalArtistData {
+    if (!data?.entities?.items) {
+      throw new Error('Invalid scraped data structure')
+    }
     const artistUri = Object.keys(data.entities.items)[0]
     if (!artistUri) {
       throw new Error('No artist data found in scraped response')
@@ -130,7 +133,7 @@ export class SpotifyDataOrchestrator {
           return acc
         }, {}) || {}
       },
-      releases: normalizeScrapedReleases(allReleases, country),
+      releases: normalizeScrapedReleases(allReleases),
       tourDates: artistData.goods?.concerts?.items?.map((concert: any) => ({
         date: concert.data.startDateIsoString,
         venue: concert.data.location.name,

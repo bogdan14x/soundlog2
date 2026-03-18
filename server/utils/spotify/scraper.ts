@@ -3,6 +3,11 @@ export function getCacheKey(artistId: string): string {
 }
 
 export async function scrapeArtistData(slug: string): Promise<any> {
+  // Basic validation to prevent malformed URLs
+  if (!slug || !/^[a-zA-Z0-9]+$/.test(slug)) {
+    throw new Error('Invalid artist slug format')
+  }
+
   const url = `https://open.spotify.com/artist/${slug}`
   
   const response = await fetch(url, {
