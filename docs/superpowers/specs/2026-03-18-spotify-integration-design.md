@@ -15,7 +15,7 @@ Implement server-side Spotify API integration to fetch artist releases. The syst
 ```
 Frontend / [slug] page
     ↓
-GET /api/artist/[slug] (with CF-IPCountry header)
+GET /api/artist/[slug] (with country headers: CF-IPCountry or x-user-country)
     ↓
 Server checks artist_integrations table
     ↓
@@ -52,12 +52,13 @@ Transform & return JSON to frontend
 
 1. **Country Detection**
    - Primary: `CF-IPCountry` header (Cloudflare)
-   - Secondary: `dayjs.tz.guess()` (client timezone)
+   - Secondary: `x-user-country` header (client-side detection via `dayjs.tz.guess()`)
    - Default: `US`
 
 2. **Spotify API Market Parameter**
    - Pass country code to all Spotify API calls
    - Example: `spotifyApi.getArtistAlbums(artistId, { market: 'GB' })`
+   - Frontend sends `x-user-country` header based on `dayjs.tz.guess()` if Cloudflare header is missing
 
 3. **Filtering Logic**
    - Spotify returns `available_markets` array per album
@@ -68,16 +69,39 @@ Transform & return JSON to frontend
 
 ### 3.1 New Table: `artist_integrations`
 
-```sql
-artist_integrations {
-  id: uuid (PK, auto-generated)
-  artist_id: uuid (FK → artists.id, unique per provider)
-  provider: enum ('spotify', 'apple_music', ...)
-  access_token: text
-  refresh_token: text (nullable)
-  expires_at: timestamp
-  created_at: timestamp (default now)
-  updated_at: timestamp (default now, updated on refresh)
+**File:** `server/db/schema.ts`
+
+```typescript
+import { sql } from 'drizzle-orm'
+import { pgEnum, pgTable, uuid, text, timestamp, pgIndex } from 'drizzle-orm/pg-core'
+import { artists } from './artists' // Assumes existing artists table
+
+export const providerEnum = pgEnum('provider', ['spotify', 'apple_music', 'tidal', 'deezer', 'youtube_music'])
+
+export const artistIntegrations = pgTable('artist_integrations', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  artistId: uuid('artist_id')
+    .notNull()
+    .references(() => artists.id, { onDelete: 'cascade' }),
+  provider: providerEnum('provider').notNull(),
+  accessToken: text('access_token').notNull(),
+  refreshToken: text('refresh_token').nullable(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow()
+    .$onUpdateFn(() => sql`now()`)
+})
+
+// Unique constraint: one integration per provider per artist
+export const artistIntegrationsUnique = pgIndex('artist_integrations_artist_provider_unique')
+  .on(artistIntegrations.artistId, artistIntegrations.provider)
+  .unique()
+
+export const schema = {
+  // ... existing tables
+  artistIntegrations
 }
 ```
 
@@ -129,11 +153,14 @@ interface SpotifyAlbum {
 
 ### 4.2 API Route
 
-**File:** `server/api/artist/[slug].get.ts`
+**File:** `server/api/artist/[slug].get.ts` (need to create directory `server/api/artist`)
 
 **Logic:**
 1. Extract `slug` from route params
-2. Get country from `CF-IPCountry` header (default: 'US')
+2. Get country from headers:
+   - Primary: `CF-IPCountry` header (Cloudflare)
+   - Secondary: `x-user-country` header (client-side detection via `dayjs.tz.guess()`)
+   - Default: 'US'
 3. Fetch artist from database by slug
 4. If not found → 404
 5. Check `artist_integrations` for Spotify token
@@ -247,20 +274,34 @@ SPOTIFY_CLIENT_SECRET="your_client_secret"
 **Add to `server/utils/env.ts`:**
 ```typescript
 SPOTIFY_CLIENT_ID: z.string().min(1),
-SPOTIFY_CLIENT_SECRET: z.string().min(1)
+SPOTIFY_CLIENT_SECRET: z.string().min(1),
+// Note: x-user-country header is parsed directly in API route, not in env validation
 ```
 
 ## 9. Implementation Sequence
 
-1. Update database schema (add `artist_integrations` table)
-2. Create Spotify client module (`server/utils/spotify.ts`)
-3. Create API route (`server/api/artist/[slug].get.ts`)
-4. Update environment validation
-5. Update frontend page to use API
-6. Add tests
-7. Verification (typecheck, tests, build)
+1. Create `server/utils` directory (if it doesn't exist)
+2. Update database schema (add `artist_integrations` table to `server/db/schema.ts`)
+3. Create Spotify client module (`server/utils/spotify.ts`)
+4. Create `server/api/artist` directory
+5. Create API route (`server/api/artist/[slug].get.ts`)
+6. Update environment validation (`server/utils/env.ts`) - *Note: Credentials assumed in `.env`; update validation schema*
+7. Update frontend page (`app/pages/[slug].vue`) to use API
+8. Add tests
+9. Verification (typecheck, tests, build)
 
-## 10. Verification
+## 10. Caching Strategy
+
+**Cache Key Format:**
+- `spotify:albums:${artistId}:${market}` - Artist albums by market
+- `spotify:token:client` - Client credentials token (in-memory, 1 hour TTL)
+
+**Invalidation Triggers:**
+- Manual refresh via dashboard (triggers cache deletion)
+- Artist release updates (new album added) - requires manual dashboard trigger or future webhook integration
+- 24h TTL for album data (automatic expiration)
+
+## 11. Verification
 
 - Run `npm run typecheck`
 - Run `npm run test`
