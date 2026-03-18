@@ -1,6 +1,6 @@
 import { mount, VueWrapper } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import FeaturedRelease from '@/app/components/artist/FeaturedRelease.vue'
+import FeaturedRelease from '../../../app/components/artist/FeaturedRelease.vue'
 
 describe('FeaturedRelease', () => {
   it('renders release title and date', () => {

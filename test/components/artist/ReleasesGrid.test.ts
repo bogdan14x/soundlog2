@@ -1,6 +1,6 @@
 import { mount, VueWrapper } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import ReleasesGrid from '@/app/components/artist/ReleasesGrid.vue'
+import ReleasesGrid from '../../../app/components/artist/ReleasesGrid.vue'
 
 describe('ReleasesGrid', () => {
   it('renders grid of releases', () => {

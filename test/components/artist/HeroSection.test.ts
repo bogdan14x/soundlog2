@@ -1,6 +1,6 @@
 import { mount, VueWrapper } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import HeroSection from '@/app/components/artist/HeroSection.vue'
+import HeroSection from '../../../app/components/artist/HeroSection.vue'
 
 describe('HeroSection', () => {
   it('renders artist name, bio, and hero image', () => {

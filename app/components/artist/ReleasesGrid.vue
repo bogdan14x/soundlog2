@@ -26,14 +26,14 @@ function closeModal() {
 </script>
 
 <template>
-  <div class="releases-grid">
-    <div
-      v-for="release in releases"
-      :key="release.title"
-      data-testid="release-item"
-      class="release-item cursor-pointer"
-      @click="openModal(release)"
-    >
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div
+        v-for="release in releases"
+        :key="release.title"
+        data-testid="release-item"
+        class="cursor-pointer"
+        @click="openModal(release)"
+      >
       <img
         :src="release.coverImage"
         :alt="release.title"
@@ -56,6 +56,7 @@ function closeModal() {
     >
       <button
         @click="closeModal"
+        aria-label="Close"
         class="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
       >
         ×
@@ -76,7 +77,7 @@ function closeModal() {
           rel="noopener noreferrer"
           class="inline-flex items-center px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
         >
-          Listen Now
+          {{ platform }}
         </a>
       </div>
     </div>
