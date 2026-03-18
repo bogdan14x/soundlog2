@@ -17,6 +17,10 @@ import { ref } from 'vue'
 import DashboardLayout from '../../components/dashboard/DashboardLayout.vue'
 import SocialLinksForm from '../../components/dashboard/SocialLinksForm.vue'
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 // Mock social links data - in real implementation, fetch from API
 const socialLinks = ref({
   instagram: 'https://instagram.com/testartist',
