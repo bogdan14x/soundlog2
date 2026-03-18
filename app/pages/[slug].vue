@@ -41,7 +41,7 @@ const { data: apiData, error } = await useFetch(`/api/artist/${slug}`, {
 interface ApiRelease {
   id: string
   name: string
-  releaseDate: string
+  date: string
   coverImage: string
   type: string
   spotifyUrl: string
@@ -82,7 +82,7 @@ const artistData = computed(() => {
   // Use first release as featured release
   const featuredRelease = releases[0] ? {
     title: releases[0].name,
-    date: releases[0].releaseDate,
+    date: releases[0].date,
     coverImage: releases[0].coverImage,
     platformLinks: { spotify: releases[0].spotifyUrl }
   } : null
@@ -90,7 +90,7 @@ const artistData = computed(() => {
   // Use remaining releases as "more releases"
   const moreReleases = releases.slice(1).map((release: ApiRelease) => ({
     title: release.name,
-    date: release.releaseDate,
+    date: release.date,
     coverImage: release.coverImage,
     platformLinks: { spotify: release.spotifyUrl }
   }))
