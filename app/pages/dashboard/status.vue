@@ -8,7 +8,9 @@
             View the status of platform link resolution for your tracks.
             All links are resolved automatically via our link matcher utility.
           </p>
-          <div v-if="statusData.length > 0" class="space-y-4">
+          <div v-if="loading" class="text-gray-500">Loading status...</div>
+          <div v-else-if="error" class="text-red-500">{{ error }}</div>
+          <div v-else-if="statusData.length > 0" class="space-y-4">
             <div
               v-for="item in statusData"
               :key="item.platform"
@@ -27,7 +29,7 @@
               </span>
             </div>
           </div>
-          <div v-else class="text-gray-500">Loading status...</div>
+          <div v-else class="text-gray-500">No status data available</div>
         </div>
       </div>
     </DashboardLayout>
@@ -35,15 +37,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import DashboardLayout from '../../components/dashboard/DashboardLayout.vue'
 
-// Mock status data - in real implementation, fetch from API
-const statusData = ref([
-  { platform: 'spotify', status: 'resolved' },
-  { platform: 'appleMusic', status: 'resolved' },
-  { platform: 'youtube', status: 'resolved' },
-  { platform: 'tidal', status: 'pending' },
-  { platform: 'deezer', status: 'failed' }
-])
+const statusData = ref<{ platform: string; status: string }[]>([])
+const loading = ref(true)
+const error = ref<string | null>(null)
+
+async function fetchStatus() {
+  try {
+    loading.value = true
+    error.value = null
+    const response = await $fetch('/api/dashboard/status')
+    statusData.value = response.data
+  } catch (err: any) {
+    error.value = err.data?.message || 'Failed to load status'
+    console.error('Error fetching status:', err)
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  fetchStatus()
+})
 </script>
