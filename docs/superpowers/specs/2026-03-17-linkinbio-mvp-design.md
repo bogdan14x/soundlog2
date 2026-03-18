@@ -143,13 +143,19 @@ releases {
   },
   "resolution_status": {
     "spotify": "resolved",
-    "apple_music": "resolved|pending|failed",
-    "youtube_music": "resolved|pending|failed",
-    "tidal": "resolved|pending|failed",
-    "deezer": "resolved|pending|failed"
+    "apple_music": "resolved",
+    "youtube_music": "resolved",
+    "tidal": "resolved",
+    "deezer": "resolved"
   }
 }
 ```
+
+**Resolution Status Values:**
+- `resolved`: Link successfully found and cached
+- `pending`: Resolution in progress (async job)
+- `failed`: Permanent failure (track not available on platform)
+- `unsupported`: Platform not supported for this track
 
 **Notes:**
 - `platform_links`: Auto-resolved links from link matcher utility API
@@ -231,18 +237,6 @@ sessions {
 └─────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────┐
-│ TOUR DATES                                                  │
-│ • Dec 15 - Venue Name, City                                 │
-│ • Dec 20 - Venue Name, City                                 │
-└─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
-│ RADIO SHOWS                                                 │
-│ • Episode 1 - Play Button                                   │
-│ • Episode 2 - Play Button                                   │
-└─────────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────────┐
 │ NEWSLETTER CTA                                              │
 │ "Stay Updated"                                              │
 │ [Email Input] [Subscribe]                                   │
@@ -289,23 +283,22 @@ sessions {
 - Queue system for batch processing during background refresh
 - Monitor API usage via Cloudflare Workers analytics
 
-### 4.2 Tour Dates Extraction
+### 4.2 Tour Dates Extraction (Post-MVP)
 
-Since Spotify doesn't provide tour dates via API, we parse the artist's Spotify page:
+**Note:** Tour dates are excluded from MVP. This section describes a potential future implementation.
 
-1. Serverless function fetches HTML from `https://open.spotify.com/artist/[id]`
-2. Extracts JSON data from `<script id="__NEXT_DATA__">` tag
-3. Parses tour dates from the JSON structure
-4. Caches results in Cloudflare KV with TTL of 24 hours
+Since Spotify doesn't provide tour dates via API, potential approaches include:
 
-**Error Handling & Robustness:**
-- **Try-Catch Wrapper:** If parsing fails, log error and hide tour dates section
-- **Fallback:** If JSON extraction fails, attempt regex pattern matching for tour data
-- **Monitoring:** Log all parsing failures to Cloudflare Workers analytics
-- **Dashboard Fallback:** Artists can manually enter tour dates in dashboard (Phase 3 feature)
-- **Health Check:** Daily automated test to verify parsing logic still works
+1. **Manual Entry (Recommended for Post-MVP):** Artists enter tour dates in dashboard
+2. **Third-Party Integration:** Integrate with Bandsintown, Songkick, or similar services
+3. **Direct Artist Input:** Provide API endpoint for artist's booking agent to submit dates
 
-**Note:** This is a fragile external dependency. Implementation plan must include comprehensive error handling and logging.
+**HTML Scraping (Not Recommended):**
+- Parsing Spotify's HTML for tour dates is fragile and may violate ToS
+- Not recommended as a primary strategy
+- If implemented, would require extensive error handling and monitoring
+
+**Implementation Note:** Tour dates feature is scheduled for Phase 4 (Post-MVP) and requires further specification.
 
 ### 4.3 Radio Shows Detection
 
@@ -520,14 +513,19 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
 
 ### 9.4 Cross-Platform Resolution Failures
 
-- **Per-Platform Status Tracking:** Use `resolution_status` field to track each platform independently (resolved, pending, failed)
+- **Per-Platform Status Tracking:** Use `resolution_status` field with distinct values:
+  - `resolved`: Link successfully found
+  - `pending`: Resolution in progress
+  - `failed`: Permanent failure (track not available on platform)
+  - `unsupported`: Platform not supported for this track
 - **UI Display Logic:**
   - Show platform button if status is "resolved"
-  - Hide platform button if status is "failed"
+  - Hide platform button if status is "failed" or "unsupported"
   - Show "More platforms coming soon" placeholder only if ALL non-Spotify platforms failed
 - **Error Recovery:**
-  - Retry failed resolutions after 24 hours (background job)
-  - Log failures to Cloudflare Workers analytics
+  - **Temporary Failures (API timeout, rate limit):** Retry after 24 hours with exponential backoff
+  - **Permanent Failures (track not found):** Mark as `failed`, no retry
+  - Log all failures to Cloudflare Workers analytics
   - Dashboard shows resolution status for each track/platform
 - **No Manual Input:** All links resolved automatically via link matcher utility
 
