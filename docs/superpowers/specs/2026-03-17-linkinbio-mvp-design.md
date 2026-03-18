@@ -97,7 +97,7 @@ artist_settings {
   id: uuid (PK, auto-generated)
   artist_id: uuid (FK → artists.id, unique)
   social_facebook: string (URL)
-  social_twitter: string (URL)          -- X (formerly Twitter)
+  social_x: string (URL)          -- X (formerly Twitter)
   social_instagram: string (URL)
   social_tiktok: string (URL)
   social_youtube: string (URL)
@@ -308,12 +308,16 @@ Since Spotify doesn't provide tour dates via API, we parse the artist's Spotify 
 3. Parses tour dates from the JSON structure
 4. Caches results in Cloudflare KV with TTL of 24 hours
 
+**Fallback Strategy (Phase 2):**
+- If HTML parsing fails, hide tour dates section
+- **Manual Entry:** Dashboard setting to add tour dates manually (Phase 3)
+- **Third-Party Integration:** Future integration with Bandsintown/Songkick API (Phase 4)
+
 **Implementation Notes:**
 - HTML parsing is fragile and may break if Spotify changes their page structure
 - Comprehensive error handling required
-- If parsing fails, hide tour dates section
 - Log all parsing failures to Cloudflare Workers analytics
-- Future enhancement: Manual entry via dashboard or third-party integration (Bandsintown, Songkick)
+- If parsing fails repeatedly, alert admin to update parsing logic
 
 ### 4.3 Radio Shows Detection
 
@@ -323,10 +327,16 @@ Check for "radio show" content type in Spotify API response:
 - Filter releases where `type === 'album'` and name contains "Radio" or "Show"
 - Display in separate section on page with episode list and play buttons
 
+**Heuristic Limitations:**
+- This detection method is heuristic-based and may produce false positives/negatives
+- Albums named "Radio Edit" or containing "Show" may be incorrectly flagged
+- **Future Enhancement:** Investigate Spotify's `show` content type or specific categories for more accurate detection
+
 **Implementation:**
 - Query Spotify API for artist's releases
-- Filter for radio show content
+- Filter for radio show content using name matching
 - Display in dedicated section on artist page
+- Log detection results for monitoring
 
 ### 4.4 Release Filtering
 
@@ -500,6 +510,7 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
 ### Phase 3: Artist Dashboard
 - Build authentication (Supabase Auth)
 - Create settings form (social links, bio)
+- Implement manual tour dates entry (fallback for HTML parsing failures)
 - Implement data persistence
 
 ### Phase 4: Advanced Features (Post-MVP)
