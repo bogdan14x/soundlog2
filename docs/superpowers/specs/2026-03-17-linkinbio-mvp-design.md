@@ -2,7 +2,7 @@
 
 **Date:** 2026-03-17
 **Version:** 1.0
-**Status:** Draft
+**Status:** Ready for Review
 
 ## Overview
 
@@ -13,6 +13,13 @@ Build an automated LinkInBio platform for independent artists that:
 - Monetizes via premium features
 
 **MVP Scope:** Public artist page display with basic dashboard management.
+**MVP Features:**
+- Artist page with hero image, bio, and social links
+- Latest releases display with cross-platform streaming links (Spotify, Apple Music, YouTube Music, Tidal, Deezer)
+- Newsletter signup CTA
+- Social media links (Facebook, X, Instagram, TikTok, YouTube, SoundCloud)
+- Basic dashboard for profile and social link management
+- **Excluded from MVP (Phase 4):** Tour dates, Radio shows, Advanced analytics
 
 ---
 
@@ -478,10 +485,11 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
 - Create settings form (social links, bio)
 - Implement data persistence
 
-### Phase 4: Advanced Features
+### Phase 4: Advanced Features (Post-MVP)
 - Tour dates extraction (Spotify page parsing)
 - Radio shows detection
 - Background refresh for link resolution
+- Note: These features are NOT included in MVP
 
 ### Phase 5: Monetization & Polish
 - Add branding & upgrade prompts
