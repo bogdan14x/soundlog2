@@ -16,10 +16,12 @@ Build an automated LinkInBio platform for independent artists that:
 **MVP Features:**
 - Artist page with hero image, bio, and social links
 - Latest releases display with cross-platform streaming links (Spotify, Apple Music, YouTube Music, Tidal, Deezer)
+- Tour dates display (parsed from Spotify artist page)
+- Radio shows detection and display
 - Newsletter signup CTA
 - Social media links (Facebook, X, Instagram, TikTok, YouTube, SoundCloud)
 - Basic dashboard for profile and social link management
-- **Excluded from MVP (Phase 4):** Tour dates, Radio shows, Advanced analytics
+- **Excluded from MVP (Phase 4):** Advanced analytics
 
 ---
 
@@ -237,6 +239,18 @@ sessions {
 └─────────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────────┐
+│ TOUR DATES                                                  │
+│ • Dec 15 - Venue Name, City                                 │
+│ • Dec 20 - Venue Name, City                                 │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
+│ RADIO SHOWS                                                 │
+│ • Episode 1 - Play Button                                   │
+│ • Episode 2 - Play Button                                   │
+└─────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────┐
 │ NEWSLETTER CTA                                              │
 │ "Stay Updated"                                              │
 │ [Email Input] [Subscribe]                                   │
@@ -283,28 +297,36 @@ sessions {
 - Queue system for batch processing during background refresh
 - Monitor API usage via Cloudflare Workers analytics
 
-### 4.2 Tour Dates Extraction (Post-MVP)
+### 4.2 Tour Dates Extraction
 
-**Note:** Tour dates are excluded from MVP. This section describes a potential future implementation.
+**Note:** Tour dates are included in MVP (Phase 2).
 
-Since Spotify doesn't provide tour dates via API, potential approaches include:
+Since Spotify doesn't provide tour dates via API, we parse the artist's Spotify page HTML:
 
-1. **Manual Entry (Recommended for Post-MVP):** Artists enter tour dates in dashboard
-2. **Third-Party Integration:** Integrate with Bandsintown, Songkick, or similar services
-3. **Direct Artist Input:** Provide API endpoint for artist's booking agent to submit dates
+1. Serverless function fetches HTML from `https://open.spotify.com/artist/[id]`
+2. Extracts JSON data from `<script id="__NEXT_DATA__">` tag
+3. Parses tour dates from the JSON structure
+4. Caches results in Cloudflare KV with TTL of 24 hours
 
-**HTML Scraping (Not Recommended):**
-- Parsing Spotify's HTML for tour dates is fragile and may violate ToS
-- Not recommended as a primary strategy
-- If implemented, would require extensive error handling and monitoring
-
-**Implementation Note:** Tour dates feature is scheduled for Phase 4 (Post-MVP) and requires further specification.
+**Implementation Notes:**
+- HTML parsing is fragile and may break if Spotify changes their page structure
+- Comprehensive error handling required
+- If parsing fails, hide tour dates section
+- Log all parsing failures to Cloudflare Workers analytics
+- Future enhancement: Manual entry via dashboard or third-party integration (Bandsintown, Songkick)
 
 ### 4.3 Radio Shows Detection
 
+**Note:** Radio shows are included in MVP (Phase 2).
+
 Check for "radio show" content type in Spotify API response:
 - Filter releases where `type === 'album'` and name contains "Radio" or "Show"
-- Display in separate section on page
+- Display in separate section on page with episode list and play buttons
+
+**Implementation:**
+- Query Spotify API for artist's releases
+- Filter for radio show content
+- Display in dedicated section on artist page
 
 ### 4.4 Release Filtering
 
@@ -472,6 +494,8 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
 - Build link matcher utility API (`/api/utils/match-links`)
 - Implement platform link resolution via MusicBrainz API (ISRC-based)
 - Add Cloudflare KV caching for resolved links
+- Implement tour dates extraction (Spotify page parsing)
+- Implement radio shows detection
 
 ### Phase 3: Artist Dashboard
 - Build authentication (Supabase Auth)
@@ -479,10 +503,9 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
 - Implement data persistence
 
 ### Phase 4: Advanced Features (Post-MVP)
-- Tour dates extraction (Spotify page parsing)
-- Radio shows detection
 - Background refresh for link resolution
-- Note: These features are NOT included in MVP
+- Custom domain support
+- Advanced analytics dashboard
 
 ### Phase 5: Monetization & Polish
 - Add branding & upgrade prompts
