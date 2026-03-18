@@ -107,6 +107,9 @@ export class SpotifyDataOrchestrator {
 
   private normalizeScrapedData(data: any, country: string): InternalArtistData {
     const artistUri = Object.keys(data.entities.items)[0]
+    if (!artistUri) {
+      throw new Error('No artist data found in scraped response')
+    }
     const artistData = data.entities.items[artistUri]
     
     // Extract all releases from discography
