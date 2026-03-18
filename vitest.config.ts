@@ -11,6 +11,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(dirname(fileURLToPath(import.meta.url)), '.'),
+      '#imports': resolve(dirname(fileURLToPath(import.meta.url)), 'test/mocks/imports.ts'),
+      '#app': resolve(dirname(fileURLToPath(import.meta.url)), 'test/mocks/app.ts'),
     },
   },
 })
