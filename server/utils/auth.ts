@@ -8,6 +8,7 @@ export interface UserSession {
   user: {
     id: string
     artistId: string
+    onboardingCompleted: boolean
   }
 }
 
@@ -53,7 +54,8 @@ export async function requireUserSession(event: H3Event): Promise<UserSession> {
     return {
       user: {
         id: user.id,
-        artistId: artist.id
+        artistId: artist.id,
+        onboardingCompleted: artist.onboardingCompleted ?? false
       }
     }
   } catch (error) {
