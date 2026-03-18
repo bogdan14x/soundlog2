@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createApp, toNodeListener, createRouter } from 'h3'
 import http from 'http'
 
-describe('Dashboard Profile API', () => {
+describe('Dashboard Socials API', () => {
   beforeEach(() => {
     vi.resetModules()
   })
@@ -17,21 +17,21 @@ describe('Dashboard Profile API', () => {
       })
     }))
 
-    const apiRoute = (await import('../../../../server/api/dashboard/profile.put')).default
+    const apiRoute = (await import('../../../../server/api/dashboard/socials.put')).default
 
     const app = createApp()
     const router = createRouter()
-    router.put('/api/dashboard/profile', apiRoute)
+    router.put('/api/dashboard/socials', apiRoute)
     app.use(router)
     
     const server = http.createServer(toNodeListener(app))
     const response = await new Promise<Response>((resolve) => {
       server.listen(0, async () => {
         const port = (server.address() as any).port
-        const res = await fetch(`http://localhost:${port}/api/dashboard/profile`, {
+        const res = await fetch(`http://localhost:${port}/api/dashboard/socials`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: 'Test Artist' })
+          body: JSON.stringify({ instagram: 'https://instagram.com/test' })
         })
         resolve(res)
         server.close()

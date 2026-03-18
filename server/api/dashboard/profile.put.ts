@@ -1,5 +1,6 @@
 import { defineEventHandler, readBody } from 'h3'
 import { z } from 'zod'
+import { requireUserSession } from '../../utils/auth'
 
 const profileSchema = z.object({
   name: z.string().min(1).max(200),
@@ -8,8 +9,7 @@ const profileSchema = z.object({
 })
 
 export default defineEventHandler(async (event) => {
-  // TODO: Add authentication check
-  // const session = await requireUserSession(event)
+  const session = await requireUserSession(event)
   
   const body = await readBody(event)
   const result = profileSchema.safeParse(body)

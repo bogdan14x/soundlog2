@@ -1,11 +1,11 @@
 import { defineEventHandler, readBody } from 'h3'
 import { z } from 'zod'
+import { requireUserSession } from '../../utils/auth'
 
-const socialLinksSchema = z.record(z.string().url().or(z.literal('')))
+const socialLinksSchema = z.record(z.string(), z.union([z.string().url(), z.literal('')]))
 
 export default defineEventHandler(async (event) => {
-  // TODO: Add authentication check
-  // const session = await requireUserSession(event)
+  const session = await requireUserSession(event)
   
   const body = await readBody(event)
   const result = socialLinksSchema.safeParse(body)
