@@ -2,36 +2,64 @@
   <div class="min-h-screen bg-gray-100">
     <DashboardLayout>
       <h2 class="text-2xl font-bold mb-6">Manage Social Links</h2>
+      <div v-if="loading" class="text-gray-500">Loading...</div>
+      <div v-else-if="error" class="text-red-500">{{ error }}</div>
       <SocialLinksForm
-        v-if="socialLinks"
+        v-else-if="socialLinks"
         :links="socialLinks"
         @submit="handleSocialLinksSubmit"
       />
-      <div v-else class="text-gray-500">Loading...</div>
     </DashboardLayout>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import DashboardLayout from '../../components/dashboard/DashboardLayout.vue'
 import SocialLinksForm from '../../components/dashboard/SocialLinksForm.vue'
 
-// Mock social links data - in real implementation, fetch from API
-const socialLinks = ref({
-  instagram: 'https://instagram.com/testartist',
-  twitter: 'https://twitter.com/testartist',
-  facebook: '',
-  tiktok: '',
-  youtube: '',
-  soundcloud: '',
-  appleMusic: '',
-  tidal: ''
-})
+const socialLinks = ref<Record<string, string> | null>(null)
+const loading = ref(true)
+const error = ref<string | null>(null)
 
-async function handleSocialLinksSubmit(formData: any) {
-  // TODO: Implement API call to save social links
-  console.log('Saving social links:', formData)
-  alert('Social links saved successfully!')
+// Fetch social links on mount
+async function fetchSocialLinks() {
+  try {
+    loading.value = true
+    error.value = null
+    const response = await $fetch('/api/dashboard/socials')
+    socialLinks.value = response.data
+  } catch (err: any) {
+    error.value = err.data?.message || 'Failed to load social links'
+    console.error('Error fetching social links:', err)
+  } finally {
+    loading.value = false
+  }
 }
+
+// Save social links data
+async function handleSocialLinksSubmit(formData: any) {
+  try {
+    loading.value = true
+    error.value = null
+    await $fetch('/api/dashboard/socials', {
+      method: 'PUT',
+      body: formData
+    })
+    alert('Social links saved successfully!')
+    // Optionally refresh data
+    await fetchSocialLinks()
+  } catch (err: any) {
+    error.value = err.data?.message || 'Failed to save social links'
+    console.error('Error saving social links:', err)
+    alert('Failed to save social links')
+  } finally {
+    loading.value = false
+  }
+}
+
+// Fetch data on component mount
+onMounted(() => {
+  fetchSocialLinks()
+})
 </script>
