@@ -4,7 +4,7 @@ import {
   refreshUserToken,
   getArtistAlbums,
   clearClientTokenCache
-} from '../../../server/utils/spotify'
+} from '../../../server/utils/spotify/api-client'
 
 describe('Spotify Client Module', () => {
   beforeEach(() => {
@@ -124,9 +124,10 @@ describe('Spotify Client Module', () => {
 
       expect(fetch).toHaveBeenCalledWith(
         'https://api.spotify.com/v1/artists/artist123/albums?limit=50&market=US',
-        {
-          headers: { Authorization: 'Bearer bearer-token' }
-        }
+        expect.objectContaining({
+          headers: { Authorization: 'Bearer bearer-token' },
+          signal: expect.any(AbortSignal)
+        })
       )
     })
 
