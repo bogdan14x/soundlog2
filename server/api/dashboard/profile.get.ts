@@ -24,7 +24,8 @@ export default defineEventHandler(async (event) => {
     data: {
       name: artist.name,
       bio: artist.bio || '',
-      heroImage: artist.heroImage || ''
+      heroImage: artist.heroImage || '',
+      onboardingCompleted: artist.onboardingCompleted
     }
   }
 })

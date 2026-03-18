@@ -18,6 +18,12 @@ vi.mock('../../../../server/utils/spotify/adapter', () => ({
   }))
 }))
 
+// Mock database client
+const getDbMock = vi.fn()
+vi.mock('../../../../server/db/client', () => ({
+  getDb: (...args: any[]) => getDbMock(...args)
+}))
+
 // Import handler AFTER mocking
 import handler from '../../../../server/api/artist/[slug].get'
 
@@ -85,6 +91,15 @@ describe('GET /api/artist/:slug', () => {
     }
 
     mockOrchestrator.getArtistData.mockResolvedValue(mockArtistData)
+    
+    // Mock database query - artist not found in DB
+    getDbMock.mockReturnValue({
+      query: {
+        artists: {
+          findFirst: vi.fn().mockResolvedValue(null)
+        }
+      }
+    })
 
     const result = await handler(mockEvent as H3Event)
     expect(result).toEqual(mockArtistData)
@@ -146,7 +161,48 @@ describe('GET /api/artist/:slug', () => {
     }
     mockOrchestrator.getArtistData.mockResolvedValue(mockArtistData)
 
-    await handler(mockEvent as H3Event)
+    const result = await handler(mockEvent as H3Event)
     expect(mockOrchestrator.getArtistData).toHaveBeenCalledWith('test-artist', 'US')
+  })
+
+  test('returns ownership info when artist found in database', async () => {
+    getRouterParamMock.mockReturnValue('test-artist')
+    getHeaderMock.mockReturnValue('US')
+
+    const mockArtistData = {
+      artist: {
+        id: 'artist-123',
+        name: 'Test Artist',
+        bio: 'Test bio',
+        heroImage: 'https://example.com/hero.jpg'
+      },
+      releases: []
+    }
+
+    const mockDbArtist = {
+      id: 'db-artist-id',
+      spotifyId: 'user-123',
+      slug: 'test-artist',
+      name: 'Test Artist'
+    }
+
+    mockOrchestrator.getArtistData.mockResolvedValue(mockArtistData)
+    
+    // Mock database query - artist found in DB
+    getDbMock.mockReturnValue({
+      query: {
+        artists: {
+          findFirst: vi.fn().mockResolvedValue(mockDbArtist)
+        }
+      }
+    })
+
+    const result = await handler(mockEvent as H3Event)
+    expect(result).toEqual({
+      ...mockArtistData,
+      ownership: {
+        spotifyId: 'user-123'
+      }
+    })
   })
 })

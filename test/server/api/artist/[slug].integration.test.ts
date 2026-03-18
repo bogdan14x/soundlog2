@@ -34,6 +34,17 @@ describe('Artist API Integration', () => {
       })
     }))
 
+    // Mock database client
+    vi.doMock('../../../../server/db/client', () => ({
+      getDb: vi.fn().mockReturnValue({
+        query: {
+          artists: {
+            findFirst: vi.fn().mockResolvedValue(null)
+          }
+        }
+      })
+    }))
+
     const apiRoute = (await import('../../../../server/api/artist/[slug].get')).default
 
     const app = createApp()
@@ -71,6 +82,17 @@ describe('Artist API Integration', () => {
       }),
       getArtistAlbums: vi.fn().mockResolvedValue({
         items: [{ id: 'album1', name: 'Test Album', release_date: '2023-01-01', album_type: 'album', images: [], external_urls: { spotify: 'https://test.com' } }]
+      })
+    }))
+
+    // Mock database client
+    vi.doMock('../../../../server/db/client', () => ({
+      getDb: vi.fn().mockReturnValue({
+        query: {
+          artists: {
+            findFirst: vi.fn().mockResolvedValue(null)
+          }
+        }
       })
     }))
 

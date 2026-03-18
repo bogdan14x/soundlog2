@@ -32,6 +32,7 @@ export const artists = pgTable('artists', {
   name: varchar('name', { length: 200 }).notNull(),
   bio: text('bio'),
   heroImage: text('hero_image'),
+  onboardingCompleted: boolean('onboarding_completed').notNull().default(false),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true })
     .notNull()

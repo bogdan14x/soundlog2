@@ -16,5 +16,9 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'auth'
+})
+
 import DashboardLayout from '../../components/dashboard/DashboardLayout.vue'
 </script>

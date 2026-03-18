@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { mount, flushPromises } from '@vue/test-utils'
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Mock useHead globally before importing the component
@@ -23,12 +23,30 @@ describe('ArtistPage', () => {
     await router.push('/test-artist')
     await router.isReady()
 
-    // Mount the component with the router
-    const wrapper = mount(ArtistPage, {
+    // Create a wrapper component with Suspense
+    const TestWrapper = {
+      template: `
+        <Suspense>
+          <template #default>
+            <ArtistPage />
+          </template>
+          <template #fallback>
+            <div>Loading...</div>
+          </template>
+        </Suspense>
+      `,
+      components: { ArtistPage }
+    }
+
+    // Mount the wrapper component with the router
+    const wrapper = mount(TestWrapper, {
       global: {
         plugins: [router]
       }
     })
+
+    // Wait for async setup to complete
+    await flushPromises()
 
     expect(wrapper.text()).toContain('Test Artist')
   })
