@@ -44,7 +44,7 @@ export type MockArtist = z.infer<typeof MockArtistSchema>
 // Mock data array
 export const mockArtists: MockArtist[] = [
   {
-    slug: 'artist-1',
+    slug: 'test-artist',
     name: 'Test Artist',
     bio: 'A test artist bio for testing purposes.',
     heroImage: '/images/hero.jpg',
