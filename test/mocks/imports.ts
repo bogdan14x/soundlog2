@@ -23,3 +23,6 @@ export const useRouter = vi.fn(() => ({
   replace: vi.fn(),
   back: vi.fn()
 }))
+
+export const defineNuxtRouteMiddleware = (fn: any) => fn
+export const navigateTo = vi.fn((path: string) => path)
