@@ -159,6 +159,8 @@ releases {
 - `failed`: Permanent failure (track not available on platform)
 - `unsupported`: Platform not supported for this track
 
+**Note:** The `resolution_status` object tracks status for each platform individually (e.g., `spotify: "resolved"`, `apple_music: "pending"`). This allows granular tracking of which platforms have successfully resolved links for each track.
+
 **Notes:**
 - `platform_links`: Auto-resolved links from link matcher utility API
 - `resolution_status`: Tracks resolution status for each platform
@@ -210,7 +212,7 @@ sessions {
    - Email input + subscribe button
 
 7. **Social Links**
-   - Icons for Facebook, Twitter, Instagram, YouTube, SoundCloud, Apple Music, Tidal
+   - Icons for Facebook, X (Twitter), Instagram, TikTok, YouTube, SoundCloud, Apple Music, Tidal
 
 8. **Footer**
    - "Powered by SoundLog" branding
