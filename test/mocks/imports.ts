@@ -26,3 +26,4 @@ export const useRouter = vi.fn(() => ({
 
 export const defineNuxtRouteMiddleware = (fn: any) => fn
 export const navigateTo = vi.fn((path: string) => path)
+export const definePageMeta = (meta: any) => {}
