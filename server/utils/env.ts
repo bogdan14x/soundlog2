@@ -3,7 +3,9 @@ import { z } from 'zod'
 const serverEnvSchema = z.object({
   SUPABASE_URL: z.string().url(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
-  DATABASE_URL: z.string().url()
+  DATABASE_URL: z.string().url(),
+  SPOTIFY_CLIENT_ID: z.string().min(1),
+  SPOTIFY_CLIENT_SECRET: z.string().min(1)
 })
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>
