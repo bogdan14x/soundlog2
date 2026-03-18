@@ -164,7 +164,7 @@ useHead({
     </div>
   </div>
   
-  <div v-else class="min-h-screen flex items-center justify-center">
+  <div v-else-if="!error" class="min-h-screen flex items-center justify-center">
     <div class="text-center">
       <h1 class="text-4xl font-bold mb-4">404 - Artist Not Found</h1>
       <p class="text-lg">The artist you're looking for doesn't exist.</p>
