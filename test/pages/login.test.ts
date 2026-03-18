@@ -9,6 +9,11 @@ describe('LoginPage', () => {
       global: {
         components: {
           AuthLayout
+        },
+        stubs: {
+          Auth: {
+            template: '<div class="auth-mock">Auth Component</div>'
+          }
         }
       }
     })
@@ -20,6 +25,11 @@ describe('LoginPage', () => {
       global: {
         components: {
           AuthLayout
+        },
+        stubs: {
+          Auth: {
+            template: '<div class="auth-mock">Auth Component</div>'
+          }
         }
       }
     })

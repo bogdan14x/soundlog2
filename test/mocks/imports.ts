@@ -1,8 +1,11 @@
 import { vi } from 'vitest'
+import { ref, computed, reactive } from 'vue'
+
+export { ref, computed, reactive }
 
 export const useSupabaseClient = vi.fn(() => ({
   auth: {
-    signInWithOAuth: vi.fn(),
+    signInWithOAuth: vi.fn(() => Promise.resolve({ data: { user: null }, error: null })),
     getSession: vi.fn(() => Promise.resolve({ data: { session: null }, error: null })),
     signOut: vi.fn(() => Promise.resolve({ error: null })),
     getUser: vi.fn(() => Promise.resolve({ data: { user: null }, error: null })),
