@@ -174,7 +174,7 @@ Stores dashboard login sessions.
 sessions {
   id: uuid (PK, auto-generated)
   artist_id: uuid (FK → artists.id)
-  token: string (session token)
+  token_hash: string (SHA-256 hash of session token)
   expires_at: timestamp
   created_at: timestamp (default now)
 }
@@ -460,9 +460,9 @@ Since Spotify doesn't provide direct links to other platforms, we'll build a cus
 
 1. Artist enters email/password
 2. Supabase Auth validates credentials
-3. Create session token in `sessions` table
-4. Store token in HTTP-only cookie
-5. Verify token on each dashboard request
+3. Generate a random session token and store only its hash in `sessions.token_hash`
+4. Store the raw token in an HTTP-only cookie
+5. Verify each dashboard request by hashing the presented token and comparing hashes
 
 ---
 
