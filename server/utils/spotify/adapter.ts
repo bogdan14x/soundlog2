@@ -29,7 +29,7 @@ export interface InternalArtistData {
 // Helper to normalize scraped releases
 export function normalizeScrapedReleases(releases: any[], country: string): InternalArtistData['releases'] {
   return releases.map((release) => {
-    const date = release.date.year 
+    const date = release.date?.year 
       ? `${release.date.year}${release.date.month ? `-${release.date.month.toString().padStart(2, '0')}` : ''}${release.date.day ? `-${release.date.day.toString().padStart(2, '0')}` : ''}`
       : 'Unknown'
     
