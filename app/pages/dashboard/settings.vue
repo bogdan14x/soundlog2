@@ -18,10 +18,6 @@ import { ref } from 'vue'
 import DashboardLayout from '../../components/dashboard/DashboardLayout.vue'
 import AdditionalSettings from '../../components/dashboard/AdditionalSettings.vue'
 
-definePageMeta({
-  middleware: 'auth'
-})
-
 // Mock settings data - in real implementation, fetch from API
 const settings = ref({
   newsletterUrl: 'https://newsletter.example.com',

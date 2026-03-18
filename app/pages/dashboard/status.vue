@@ -38,10 +38,6 @@
 import { ref } from 'vue'
 import DashboardLayout from '../../components/dashboard/DashboardLayout.vue'
 
-definePageMeta({
-  middleware: 'auth'
-})
-
 // Mock status data - in real implementation, fetch from API
 const statusData = ref([
   { platform: 'spotify', status: 'resolved' },

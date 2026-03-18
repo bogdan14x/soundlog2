@@ -17,10 +17,6 @@ import { ref } from 'vue'
 import DashboardLayout from '../../components/dashboard/DashboardLayout.vue'
 import ProfileForm from '../../components/dashboard/ProfileForm.vue'
 
-definePageMeta({
-  middleware: 'auth'
-})
-
 // Mock artist data - in real implementation, fetch from API
 const artist = ref({
   name: 'Test Artist',
