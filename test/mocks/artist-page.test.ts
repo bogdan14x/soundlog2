@@ -3,10 +3,10 @@ import { getArtistBySlug, mockArtists } from '../../app/mocks/artist-page'
 
 describe('artist-page mock data', () => {
   it('should return an artist for a valid slug', () => {
-    const artist = getArtistBySlug('artist-1')
+    const artist = getArtistBySlug('test-artist')
 
     expect(artist).toBeDefined()
-    expect(artist?.slug).toBe('artist-1')
+    expect(artist?.slug).toBe('test-artist')
     expect(artist?.name).toBeDefined()
   })
 
