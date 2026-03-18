@@ -17,3 +17,9 @@ export const useRuntimeConfig = vi.fn(() => ({
     siteUrl: 'http://localhost:3000'
   }
 }))
+
+export const useRouter = vi.fn(() => ({
+  push: vi.fn(),
+  replace: vi.fn(),
+  back: vi.fn()
+}))
