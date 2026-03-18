@@ -8,8 +8,15 @@
             View the status of platform link resolution for your tracks.
             All links are resolved automatically via our link matcher utility.
           </p>
-          <div v-if="loading" class="text-gray-500">Loading status...</div>
-          <div v-else-if="error" class="text-red-500">{{ error }}</div>
+          <!-- Loading State -->
+          <div v-if="loading" class="flex justify-center items-center py-12">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+          </div>
+
+          <!-- Error State -->
+          <div v-else-if="error" class="bg-red-50 text-red-600 p-4 rounded-md mb-6">
+            {{ error }}
+          </div>
           <div v-else-if="statusData.length > 0" class="space-y-4">
             <div
               v-for="item in statusData"
@@ -48,10 +55,14 @@ async function fetchStatus() {
   try {
     loading.value = true
     error.value = null
-    const response = await $fetch('/api/dashboard/status')
-    statusData.value = response.data
+    const response = (await $fetch('/api/dashboard/status')) as any
+    if (response.success) {
+      statusData.value = response.data
+    } else {
+      throw new Error(response.message || 'Failed to load status data')
+    }
   } catch (err: any) {
-    error.value = err.data?.message || 'Failed to load status'
+    error.value = err.data?.message || err.message || 'Failed to load status'
     console.error('Error fetching status:', err)
   } finally {
     loading.value = false

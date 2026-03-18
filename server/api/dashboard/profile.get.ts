@@ -1,22 +1,30 @@
 import { defineEventHandler } from 'h3'
 import { requireUserSession } from '../../utils/auth'
+import { getDb } from '../../db/client'
+import { eq } from 'drizzle-orm'
+import { artists } from '../../db/schema'
 
 export default defineEventHandler(async (event) => {
   const session = await requireUserSession(event)
   
-  // TODO: Fetch artist data from database
-  // const artistId = session.user.artistId
-  // const artist = await db.query.artists.findFirst({
-  //   where: eq(artists.id, artistId)
-  // })
-  
-  // Mock data for now
+  const db = getDb()
+  const artist = await db.query.artists.findFirst({
+    where: eq(artists.id, session.user.artistId)
+  })
+
+  if (!artist) {
+    return {
+      success: false,
+      error: 'Artist not found'
+    }
+  }
+
   return {
     success: true,
     data: {
-      name: 'Test Artist',
-      bio: 'Test bio',
-      heroImage: 'https://example.com/image.jpg'
+      name: artist.name,
+      bio: artist.bio || '',
+      heroImage: artist.heroImage || ''
     }
   }
 })

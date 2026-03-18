@@ -17,7 +17,7 @@ describe('requireUserSession', () => {
 
   it('throws 401 Unauthorized error when no session exists', async () => {
     await expect(requireUserSession(mockEvent as H3Event))
-      .rejects.toThrow('Authentication required')
+      .rejects.toThrow('No access token provided')
   })
   
   it('throws error with correct status code', async () => {

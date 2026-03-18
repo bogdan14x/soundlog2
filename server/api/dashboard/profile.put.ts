@@ -1,6 +1,9 @@
 import { defineEventHandler, readBody, createError } from 'h3'
 import { z } from 'zod'
 import { requireUserSession } from '../../utils/auth'
+import { getDb } from '../../db/client'
+import { eq } from 'drizzle-orm'
+import { artists } from '../../db/schema'
 
 const profileSchema = z.object({
   name: z.string().min(1).max(200),
@@ -22,13 +25,23 @@ export default defineEventHandler(async (event) => {
     })
   }
   
-  // TODO: Update artist in database
-  // const artistId = session.user.artistId
-  // await db.update(artists).set(result.data).where(eq(artists.id, artistId))
+  const db = getDb()
+  const updatedArtist = await db.update(artists)
+    .set(result.data)
+    .where(eq(artists.id, session.user.artistId))
+    .returning()
+  
+  if (!updatedArtist || updatedArtist.length === 0) {
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'Artist not found',
+      message: 'Could not update profile'
+    })
+  }
   
   return {
     success: true,
     message: 'Profile updated successfully',
-    data: result.data
+    data: updatedArtist[0]
   }
 })

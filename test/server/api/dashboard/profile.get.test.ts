@@ -18,6 +18,24 @@ describe('GET /api/dashboard/profile', () => {
       })
     }))
 
+    // Mock the database client
+    const mockArtist = {
+      id: 'artist-456',
+      name: 'Test Artist',
+      bio: 'Test bio',
+      heroImage: 'https://example.com/image.jpg'
+    }
+
+    vi.doMock('../../../../server/db/client', () => ({
+      getDb: vi.fn().mockReturnValue({
+        query: {
+          artists: {
+            findFirst: vi.fn().mockResolvedValue(mockArtist)
+          }
+        }
+      })
+    }))
+
     const apiRoute = (await import('../../../../server/api/dashboard/profile.get')).default
 
     const app = createApp()
@@ -41,6 +59,10 @@ describe('GET /api/dashboard/profile', () => {
     expect(response.status).toBe(200)
     const data = await response.json()
     expect(data.success).toBe(true)
-    expect(data.data).toBeDefined()
+    expect(data.data).toEqual({
+      name: 'Test Artist',
+      bio: 'Test bio',
+      heroImage: 'https://example.com/image.jpg'
+    })
   })
 })

@@ -1,0 +1,2133 @@
+{
+	"session": {
+		"me": null,
+		"product": {
+			"country": "FR",
+			"catalogue": "premium",
+			"product": "PREMIUM",
+			"on-demand": "1"
+		},
+		"locale": "en",
+		"textDirectionality": "ltr",
+		"isAnonymous": true,
+		"features": {
+			"enableShows": true,
+			"isMWPAndPlaybackCapable": false,
+			"isPodcastEnabled": true,
+			"isI18nAdditionalPagesEnabled": false,
+			"isReinventFreeEnabled": false
+		},
+		"country": "FR",
+		"browserOS": "android",
+		"canGoBack": false,
+		"canGoForward": false
+	},
+	"connect": {
+		"device": null,
+		"devices": [],
+		"manualTransferDeviceId": null
+	},
+	"entities": {
+		"items": {
+			"spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai": {
+				"__typename": "Artist",
+				"discography": {
+					"albums": {
+						"items": [
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02c8cdf1dec0c521453eb1a7cb",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851c8cdf1dec0c521453eb1a7cb",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273c8cdf1dec0c521453eb1a7cb",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2023 },
+											"name": "She Knows (with Akon) [The Remixes]",
+											"type": "ALBUM",
+											"uri": "spotify:album:7j3QBadmH19j8ucnxTmVIQ"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02c2a0ec4f562f87f35fd1dade",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851c2a0ec4f562f87f35fd1dade",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273c2a0ec4f562f87f35fd1dade",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2023 },
+											"name": "On My Love (The Remixes)",
+											"type": "ALBUM",
+											"uri": "spotify:album:0iAv3656WbI551gLIRS6NB"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e0267e400c9be79e6b0b0086880",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d0000485167e400c9be79e6b0b0086880",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b27367e400c9be79e6b0b0086880",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2018 },
+											"name": "7",
+											"type": "ALBUM",
+											"uri": "spotify:album:5rbJtzuXtpIP0Ykk7ewIit"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e0278970ae7a1d564a7ba00fe39",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d0000485178970ae7a1d564a7ba00fe39",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b27378970ae7a1d564a7ba00fe39",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2018 },
+											"name": "7: Anniversary Edition",
+											"type": "ALBUM",
+											"uri": "spotify:album:0GJU424RiEyYQTLbZcHVA7"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02995dab6422a3dc6a70f79bbe",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851995dab6422a3dc6a70f79bbe",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273995dab6422a3dc6a70f79bbe",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2015 },
+											"name": "Listen Again",
+											"type": "ALBUM",
+											"uri": "spotify:album:7bpWEp24oHgUs08ImjakfU"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02720d368aa9ea6335ca40a6f8",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851720d368aa9ea6335ca40a6f8",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273720d368aa9ea6335ca40a6f8",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2014 },
+											"name": "Listen",
+											"type": "ALBUM",
+											"uri": "spotify:album:77UW17CZFyCaRLHdHeofZu"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e021f95d10977fd47e354203248",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048511f95d10977fd47e354203248",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2731f95d10977fd47e354203248",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2014 },
+											"name": "Listen (Track by Track)",
+											"type": "ALBUM",
+											"uri": "spotify:album:4cm27QX0Xqgflgtj5ns470"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e0263bf1cd36632031eb3081cb0",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d0000485163bf1cd36632031eb3081cb0",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b27363bf1cd36632031eb3081cb0",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2012 },
+											"name": "Nothing but the Beat (Ultimate Edition)",
+											"type": "ALBUM",
+											"uri": "spotify:album:4bTjdxhRRUiWfwj200f9Kl"
+										}
+									]
+								}
+							}
+						]
+					},
+					"compilations": {
+						"items": [
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02432f4779f5dad5d9c956807f",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851432f4779f5dad5d9c956807f",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273432f4779f5dad5d9c956807f",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2023 },
+											"name": "New Year's Eve Party",
+											"type": "COMPILATION",
+											"uri": "spotify:album:6t9qg1wwerlEXVQjXYUKgh"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e021fd23f3ec1edb3e94fdb1c3b",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048511fd23f3ec1edb3e94fdb1c3b",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2731fd23f3ec1edb3e94fdb1c3b",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2013 },
+											"name": "She Wolf (Falling to Pieces) [feat. Sia]",
+											"type": "COMPILATION",
+											"uri": "spotify:album:4bOquAnBK50o5SupKQmdJt"
+										}
+									]
+								}
+							}
+						]
+					},
+					"latest": {
+						"coverArt": {
+							"sources": [
+								{
+									"height": 300,
+									"url": "https://i.scdn.co/image/ab67616d00001e022ee6259a91835039a96dc674",
+									"width": 300
+								},
+								{
+									"height": 64,
+									"url": "https://i.scdn.co/image/ab67616d000048512ee6259a91835039a96dc674",
+									"width": 64
+								},
+								{
+									"height": 640,
+									"url": "https://i.scdn.co/image/ab67616d0000b2732ee6259a91835039a96dc674",
+									"width": 640
+								}
+							]
+						},
+						"date": { "year": 2026 },
+						"name": "Ranjha",
+						"type": "SINGLE",
+						"uri": "spotify:album:2b2JX5znXI5KCCVnx4XotX"
+					},
+					"popularReleasesAlbums": {
+						"items": [
+							{
+								"coverArt": {
+									"sources": [
+										{
+											"height": 300,
+											"url": "https://i.scdn.co/image/ab67616d00001e0263bf1cd36632031eb3081cb0",
+											"width": 300
+										},
+										{
+											"height": 64,
+											"url": "https://i.scdn.co/image/ab67616d0000485163bf1cd36632031eb3081cb0",
+											"width": 64
+										},
+										{
+											"height": 640,
+											"url": "https://i.scdn.co/image/ab67616d0000b27363bf1cd36632031eb3081cb0",
+											"width": 640
+										}
+									]
+								},
+								"date": { "year": 2012 },
+								"name": "Nothing but the Beat (Ultimate Edition)",
+								"type": "ALBUM",
+								"uri": "spotify:album:4bTjdxhRRUiWfwj200f9Kl"
+							},
+							{
+								"coverArt": {
+									"sources": [
+										{
+											"height": 300,
+											"url": "https://i.scdn.co/image/ab67616d00001e021813115ff10c5f5ae028321d",
+											"width": 300
+										},
+										{
+											"height": 64,
+											"url": "https://i.scdn.co/image/ab67616d000048511813115ff10c5f5ae028321d",
+											"width": 64
+										},
+										{
+											"height": 640,
+											"url": "https://i.scdn.co/image/ab67616d0000b2731813115ff10c5f5ae028321d",
+											"width": 640
+										}
+									]
+								},
+								"date": { "year": 2010 },
+								"name": "One More Love",
+								"type": "ALBUM",
+								"uri": "spotify:album:7fHeCs5cgtXYqxBPG1iK1n"
+							},
+							{
+								"coverArt": {
+									"sources": [
+										{
+											"height": 300,
+											"url": "https://i.scdn.co/image/ab67616d00001e02f24c7321eabddffc3829676b",
+											"width": 300
+										},
+										{
+											"height": 64,
+											"url": "https://i.scdn.co/image/ab67616d00004851f24c7321eabddffc3829676b",
+											"width": 64
+										},
+										{
+											"height": 640,
+											"url": "https://i.scdn.co/image/ab67616d0000b273f24c7321eabddffc3829676b",
+											"width": 640
+										}
+									]
+								},
+								"date": { "year": 2022 },
+								"name": "I'm Good (Blue)",
+								"type": "SINGLE",
+								"uri": "spotify:album:7M842DMhYVALrXsw3ty7B3"
+							},
+							{
+								"coverArt": {
+									"sources": [
+										{
+											"height": 300,
+											"url": "https://i.scdn.co/image/ab67616d00001e02b89fa8e4480031eb17c2bf4f",
+											"width": 300
+										},
+										{
+											"height": 64,
+											"url": "https://i.scdn.co/image/ab67616d00004851b89fa8e4480031eb17c2bf4f",
+											"width": 64
+										},
+										{
+											"height": 640,
+											"url": "https://i.scdn.co/image/ab67616d0000b273b89fa8e4480031eb17c2bf4f",
+											"width": 640
+										}
+									]
+								},
+								"date": { "year": 2025 },
+								"name": "Gone Gone Gone",
+								"type": "SINGLE",
+								"uri": "spotify:album:39FHrt5YWp4HY7dHDn8Owz"
+							},
+							{
+								"coverArt": {
+									"sources": [
+										{
+											"height": 300,
+											"url": "https://i.scdn.co/image/ab67616d00001e02720d368aa9ea6335ca40a6f8",
+											"width": 300
+										},
+										{
+											"height": 64,
+											"url": "https://i.scdn.co/image/ab67616d00004851720d368aa9ea6335ca40a6f8",
+											"width": 64
+										},
+										{
+											"height": 640,
+											"url": "https://i.scdn.co/image/ab67616d0000b273720d368aa9ea6335ca40a6f8",
+											"width": 640
+										}
+									]
+								},
+								"date": { "year": 2014 },
+								"name": "Listen",
+								"type": "ALBUM",
+								"uri": "spotify:album:77UW17CZFyCaRLHdHeofZu"
+							}
+						]
+					},
+					"singles": {
+						"items": [
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e022ee6259a91835039a96dc674",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048512ee6259a91835039a96dc674",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2732ee6259a91835039a96dc674",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Ranjha",
+											"type": "SINGLE",
+											"uri": "spotify:album:2b2JX5znXI5KCCVnx4XotX"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02ab06fe415d821163f1372f75",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851ab06fe415d821163f1372f75",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273ab06fe415d821163f1372f75",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Save Me Tonight",
+											"type": "SINGLE",
+											"uri": "spotify:album:4ha2YPiAGZrV5OIIKJkt9Z"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02d47a62ef9d409ded376c9318",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851d47a62ef9d409ded376c9318",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273d47a62ef9d409ded376c9318",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Walked Away",
+											"type": "SINGLE",
+											"uri": "spotify:album:6cvgQwNKooq6BRqkHwV05v"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e026e7c0952c29eb926ac43fef9",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048516e7c0952c29eb926ac43fef9",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2736e7c0952c29eb926ac43fef9",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Goin' Crazy (Full Vocal Mix)",
+											"type": "SINGLE",
+											"uri": "spotify:album:3qmq9Et9ESD047iqAsBR3O"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02a9bbb00ce65093f2e687e42c",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851a9bbb00ce65093f2e687e42c",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273a9bbb00ce65093f2e687e42c",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Prayer",
+											"type": "SINGLE",
+											"uri": "spotify:album:5LRgIJesYCJMxeopeVLPjK"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e028faabccaac22aed88032afee",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048518faabccaac22aed88032afee",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2738faabccaac22aed88032afee",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Upside Down",
+											"type": "SINGLE",
+											"uri": "spotify:album:3EXw9tcmiPJmCQY1s0tKfR"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e0251b9f7a1d4862957690fe50e",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d0000485151b9f7a1d4862957690fe50e",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b27351b9f7a1d4862957690fe50e",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Gone Gone Gone (feat. Teddy Swims) [Unplugged]",
+											"type": "SINGLE",
+											"uri": "spotify:album:3hyvSEl7i7M1CNyPTxDO2e"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e0226f9ad0ca2ce1d23efc7f5ea",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d0000485126f9ad0ca2ce1d23efc7f5ea",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b27326f9ad0ca2ce1d23efc7f5ea",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2026 },
+											"name": "Satisfaction (with KASIA, Moonphazes, Majewski) [Remix]",
+											"type": "SINGLE",
+											"uri": "spotify:album:6R8XewqCot8PEvbAv67rXk"
+										}
+									]
+								}
+							}
+						]
+					},
+					"topTracks": {
+						"items": [
+							{
+								"track": {
+									"__typename": "Track",
+									"albumOfTrack": {
+										"coverArt": {
+											"sources": [
+												{
+													"height": 300,
+													"url": "https://i.scdn.co/image/ab67616d00001e0263bf1cd36632031eb3081cb0",
+													"width": 300
+												},
+												{
+													"height": 64,
+													"url": "https://i.scdn.co/image/ab67616d0000485163bf1cd36632031eb3081cb0",
+													"width": 64
+												},
+												{
+													"height": 640,
+													"url": "https://i.scdn.co/image/ab67616d0000b27363bf1cd36632031eb3081cb0",
+													"width": 640
+												}
+											]
+										},
+										"name": "Nothing but the Beat (Ultimate Edition)",
+										"uri": "spotify:album:4bTjdxhRRUiWfwj200f9Kl"
+									},
+									"artists": {
+										"items": [
+											{
+												"profile": {
+													"name": "David Guetta"
+												},
+												"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+											},
+											{
+												"profile": { "name": "Sia" },
+												"uri": "spotify:artist:5WUlDfRSoLAfcVSX1WnrxN"
+											}
+										]
+									},
+									"contentRating": { "label": "NONE" },
+									"name": "Titanium (feat. Sia)",
+									"playcount": "2217935088",
+									"previews": {
+										"audioPreviews": {
+											"items": [
+												{
+													"url": "https://p.scdn.co/mp3-preview/dc70b804a7155293355b92b78be639ca245ec922"
+												}
+											]
+										}
+									},
+									"uri": "spotify:track:0TDLuuLlV54CkRRUOahJb4"
+								}
+							},
+							{
+								"track": {
+									"__typename": "Track",
+									"albumOfTrack": {
+										"coverArt": {
+											"sources": [
+												{
+													"height": 300,
+													"url": "https://i.scdn.co/image/ab67616d00001e021813115ff10c5f5ae028321d",
+													"width": 300
+												},
+												{
+													"height": 64,
+													"url": "https://i.scdn.co/image/ab67616d000048511813115ff10c5f5ae028321d",
+													"width": 64
+												},
+												{
+													"height": 640,
+													"url": "https://i.scdn.co/image/ab67616d0000b2731813115ff10c5f5ae028321d",
+													"width": 640
+												}
+											]
+										},
+										"name": "One More Love",
+										"uri": "spotify:album:7fHeCs5cgtXYqxBPG1iK1n"
+									},
+									"artists": {
+										"items": [
+											{
+												"profile": {
+													"name": "David Guetta"
+												},
+												"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+											},
+											{
+												"profile": {
+													"name": "Kid Cudi"
+												},
+												"uri": "spotify:artist:0fA0VVWsXO9YnASrzqfmYu"
+											}
+										]
+									},
+									"contentRating": { "label": "NONE" },
+									"name": "Memories (feat. Kid Cudi)",
+									"playcount": "1424415507",
+									"previews": {
+										"audioPreviews": {
+											"items": [
+												{
+													"url": "https://p.scdn.co/mp3-preview/142a5e572bed7e1e646c835a1ea426997b7f3ff8"
+												}
+											]
+										}
+									},
+									"uri": "spotify:track:7fLzbEOBOae9lUnOwr7Tse"
+								}
+							},
+							{
+								"track": {
+									"__typename": "Track",
+									"albumOfTrack": {
+										"coverArt": {
+											"sources": [
+												{
+													"height": 300,
+													"url": "https://i.scdn.co/image/ab67616d00001e02f24c7321eabddffc3829676b",
+													"width": 300
+												},
+												{
+													"height": 64,
+													"url": "https://i.scdn.co/image/ab67616d00004851f24c7321eabddffc3829676b",
+													"width": 64
+												},
+												{
+													"height": 640,
+													"url": "https://i.scdn.co/image/ab67616d0000b273f24c7321eabddffc3829676b",
+													"width": 640
+												}
+											]
+										},
+										"name": "I'm Good (Blue)",
+										"uri": "spotify:album:7M842DMhYVALrXsw3ty7B3"
+									},
+									"artists": {
+										"items": [
+											{
+												"profile": {
+													"name": "David Guetta"
+												},
+												"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+											},
+											{
+												"profile": {
+													"name": "Bebe Rexha"
+												},
+												"uri": "spotify:artist:64M6ah0SkkRsnPGtGiRAbb"
+											}
+										]
+									},
+									"contentRating": { "label": "EXPLICIT" },
+									"name": "I'm Good (Blue)",
+									"playcount": "2345147629",
+									"previews": {
+										"audioPreviews": {
+											"items": [
+												{
+													"url": "https://p.scdn.co/mp3-preview/f3645c1f65c63643f1ecb0b1e5a4437f898a3102"
+												}
+											]
+										}
+									},
+									"uri": "spotify:track:4uUG5RXrOk84mYEfFvj3cK"
+								}
+							},
+							{
+								"track": {
+									"__typename": "Track",
+									"albumOfTrack": {
+										"coverArt": {
+											"sources": [
+												{
+													"height": 300,
+													"url": "https://i.scdn.co/image/ab67616d00001e021813115ff10c5f5ae028321d",
+													"width": 300
+												},
+												{
+													"height": 64,
+													"url": "https://i.scdn.co/image/ab67616d000048511813115ff10c5f5ae028321d",
+													"width": 64
+												},
+												{
+													"height": 640,
+													"url": "https://i.scdn.co/image/ab67616d0000b2731813115ff10c5f5ae028321d",
+													"width": 640
+												}
+											]
+										},
+										"name": "One More Love",
+										"uri": "spotify:album:7fHeCs5cgtXYqxBPG1iK1n"
+									},
+									"artists": {
+										"items": [
+											{
+												"profile": {
+													"name": "David Guetta"
+												},
+												"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+											},
+											{
+												"profile": { "name": "Akon" },
+												"uri": "spotify:artist:0z4gvV4rjIZ9wHck67ucSV"
+											}
+										]
+									},
+									"contentRating": { "label": "EXPLICIT" },
+									"name": "Sexy Bitch (feat. Akon)",
+									"playcount": "1357045269",
+									"previews": {
+										"audioPreviews": {
+											"items": [
+												{
+													"url": "https://p.scdn.co/mp3-preview/f11a157b92dc1379052822e88e75f5f5d5b248a9"
+												}
+											]
+										}
+									},
+									"uri": "spotify:track:2dGxjfhFXDIUX9h5ImyKkE"
+								}
+							},
+							{
+								"track": {
+									"__typename": "Track",
+									"albumOfTrack": {
+										"coverArt": {
+											"sources": [
+												{
+													"height": 300,
+													"url": "https://i.scdn.co/image/ab67616d00001e02b89fa8e4480031eb17c2bf4f",
+													"width": 300
+												},
+												{
+													"height": 64,
+													"url": "https://i.scdn.co/image/ab67616d00004851b89fa8e4480031eb17c2bf4f",
+													"width": 64
+												},
+												{
+													"height": 640,
+													"url": "https://i.scdn.co/image/ab67616d0000b273b89fa8e4480031eb17c2bf4f",
+													"width": 640
+												}
+											]
+										},
+										"name": "Gone Gone Gone",
+										"uri": "spotify:album:39FHrt5YWp4HY7dHDn8Owz"
+									},
+									"artists": {
+										"items": [
+											{
+												"profile": {
+													"name": "David Guetta"
+												},
+												"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+											},
+											{
+												"profile": {
+													"name": "Teddy Swims"
+												},
+												"uri": "spotify:artist:33qOK5uJ8AR2xuQQAhHump"
+											},
+											{
+												"profile": {
+													"name": "Tones And I"
+												},
+												"uri": "spotify:artist:2NjfBq1NflQcKSeiDooVjY"
+											}
+										]
+									},
+									"contentRating": { "label": "NONE" },
+									"name": "Gone Gone Gone",
+									"playcount": "87785567",
+									"previews": {
+										"audioPreviews": {
+											"items": [
+												{
+													"url": "https://p.scdn.co/mp3-preview/4b13ec584e97da3f4ca3c43271a533969214793e"
+												}
+											]
+										}
+									},
+									"uri": "spotify:track:3Dy4xsff7c0fRaTJpA54yd"
+								}
+							}
+						]
+					}
+				},
+				"goods": {
+					"concerts": {
+						"items": [
+							{
+								"data": {
+									"__typename": "ConcertV2",
+									"artists": {
+										"items": [
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "1Cs0zKBU1kc0i8ypK3B9ai",
+													"profile": {
+														"name": "David Guetta"
+													},
+													"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+												}
+											},
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "4xnMDfgEmXZEEDdITKcGuE",
+													"profile": {
+														"name": "Audien"
+													},
+													"uri": "spotify:artist:4xnMDfgEmXZEEDdITKcGuE"
+												}
+											},
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "43BxCL6t4c73BQnIJtry5v",
+													"profile": {
+														"name": "James Hype"
+													},
+													"uri": "spotify:artist:43BxCL6t4c73BQnIJtry5v"
+												}
+											},
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "5nki7yRhxgM509M5ADlN1p",
+													"profile": {
+														"name": "Oliver Heldens"
+													},
+													"uri": "spotify:artist:5nki7yRhxgM509M5ADlN1p"
+												}
+											},
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "2rTo8KIkBTFjQS7VvaKYQ4",
+													"profile": {
+														"name": "W&W"
+													},
+													"uri": "spotify:artist:2rTo8KIkBTFjQS7VvaKYQ4"
+												}
+											}
+										]
+									},
+									"festival": false,
+									"location": {
+										"city": "Abbotsford",
+										"coordinates": {
+											"latitude": 49.024044,
+											"longitude": -122.381333
+										},
+										"name": "Tradex"
+									},
+									"startDateIsoString": "2026-04-04T18:00-07:00",
+									"title": "David Guetta, Audien, James Hype, Oliver Heldens, W&W",
+									"uri": "spotify:concert:6Kwlptg1vUx2gcZZHCroXH"
+								}
+							},
+							{
+								"data": {
+									"__typename": "ConcertV2",
+									"artists": {
+										"items": [
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "1Cs0zKBU1kc0i8ypK3B9ai",
+													"profile": {
+														"name": "David Guetta"
+													},
+													"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+												}
+											}
+										]
+									},
+									"festival": false,
+									"location": {
+										"city": "Las Vegas",
+										"coordinates": {
+											"latitude": 36.137535,
+											"longitude": -115.160039
+										},
+										"name": "LIV Beach"
+									},
+									"startDateIsoString": "2026-04-18T11:30-07:00",
+									"title": "David Guetta",
+									"uri": "spotify:concert:2LSa30sA9bCJlYgbhLvsCg"
+								}
+							},
+							{
+								"data": {
+									"__typename": "ConcertV2",
+									"artists": {
+										"items": [
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "1Cs0zKBU1kc0i8ypK3B9ai",
+													"profile": {
+														"name": "David Guetta"
+													},
+													"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+												}
+											}
+										]
+									},
+									"festival": false,
+									"location": {
+										"city": "Las Vegas",
+										"coordinates": {
+											"latitude": 36.137535,
+											"longitude": -115.160039
+										},
+										"name": "LIV Beach"
+									},
+									"startDateIsoString": "2026-04-25T11:30-07:00",
+									"title": "David Guetta",
+									"uri": "spotify:concert:6MdHYqk43RDSCRPlmwkchv"
+								}
+							},
+							{
+								"data": {
+									"__typename": "ConcertV2",
+									"artists": {
+										"items": [
+											{
+												"data": {
+													"__typename": "Artist",
+													"id": "1Cs0zKBU1kc0i8ypK3B9ai",
+													"profile": {
+														"name": "David Guetta"
+													},
+													"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai"
+												}
+											}
+										]
+									},
+									"festival": false,
+									"location": {
+										"city": "Las Vegas",
+										"coordinates": {
+											"latitude": 36.137535,
+											"longitude": -115.160039
+										},
+										"name": "LIV Beach"
+									},
+									"startDateIsoString": "2026-05-02T11:30-07:00",
+									"title": "David Guetta",
+									"uri": "spotify:concert:5k83FSMW95ujiIJHh3MMxO"
+								}
+							}
+						],
+						"pagingInfo": { "limit": 4 },
+						"totalCount": 16
+					}
+				},
+				"headerImage": {
+					"data": {
+						"__typename": "ImageV2",
+						"sources": [
+							{
+								"maxHeight": 1140,
+								"maxWidth": 2660,
+								"url": "https://image-cdn-fa.spotifycdn.com/image/ab676186000010163d3652727951bd9d5a71c0b8"
+							},
+							{
+								"maxHeight": 1080,
+								"maxWidth": 1920,
+								"url": "https://i2o.scdn.co/image/ab676186000016663d3652727951bd9d5a71c0b8"
+							},
+							{
+								"maxHeight": 1080,
+								"maxWidth": 1920,
+								"url": "https://i2o.scdn.co/image/ab676186000016663d3652727951bd9d5a71c0b8"
+							},
+							{
+								"maxHeight": 640,
+								"maxWidth": 1494,
+								"url": "https://image-cdn-fa.spotifycdn.com/image/ab6761860000660e3d3652727951bd9d5a71c0b8"
+							},
+							{
+								"maxHeight": 641,
+								"maxWidth": 1495,
+								"url": "https://image-cdn-fa.spotifycdn.com/image/ab67618600006fba3d3652727951bd9d5a71c0b8"
+							}
+						]
+					}
+				},
+				"preRelease": null,
+				"profile": {
+					"biography": {
+						"text": "DJ. Producer. Artist. David Guetta is a musical trailblazer and an international icon. With 2x Grammys awards, 11x Grammy nominations, 7x UK number 1 singles, over 40 billion global streams, 50 million records sold worldwide, and is currently the 4th most streamed artist on Spotify with over 75 million monthly global followers. Guetta has most recently achieved the ‘Producer of the Year’ award by the BRITs in recognition of his production successes. \n\nThe French producer mastermind has collaborated with some of the world’s biggest stars including SIA, Nicki Minaj, Rihanna, Justin Bieber, Black Eyed Peas, Shakira, Ariana Grande, Kid Cudi, J Balvin, Becky Hill, Raye. Such work has resulted in numerous hit singles, such as ‘When Love Takes Over’, ‘Sexy Bitch’, ‘Memories’, ‘Where Them Girls At’, ‘Without You’, ‘I Gotta Feeling’, ‘Titanium’ which has over 1 billion streams.\n\nGuetta has stormed into 2023 with his new dance smash ‘Baby Don’t Hurt Me’, with the two pop megastars Anne-Marie and Coi Leray. It arrived as the hotly anticipated follow-up to Spotify global #1 and streaming monster, ‘I’m Good (Blue)’ with Bebe Rexha. The track earned Guetta his eleventh Grammy nomination, receiving a nod for ‘Best Dance/Electronic Recording’, has garnered 1.8 billion global streams and simultaneously hit #1 at the US Top 40 &amp; US Dance Radio charts.\n\nDavid Guetta demonstrates time and time again why he is the most cherished electronic artist of our generation."
+					},
+					"externalLinks": {
+						"items": [
+							{
+								"name": "FACEBOOK",
+								"url": "https://facebook.com/davidguetta"
+							},
+							{
+								"name": "INSTAGRAM",
+								"url": "https://instagram.com/davidguetta"
+							},
+							{
+								"name": "TWITTER",
+								"url": "https://twitter.com/davidguetta"
+							},
+							{
+								"name": "WIKIPEDIA",
+								"url": "https://en.wikipedia.org/wiki/David_Guetta"
+							}
+						]
+					},
+					"name": "David Guetta",
+					"playlistsV2": {
+						"items": [
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "6JmDI2ZF7fl93qZzI72bI3",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000d72c8d13c300fbeea560866086cd",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "Gone Gone Gone - David Guetta Hits",
+									"uri": "spotify:playlist:6JmDI2ZF7fl93qZzI72bI3"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "1ONoVwmw96EtWKfcdsrVZf",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84dd4e35444919e3686f539c4b",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "David Guetta Playlist",
+									"uri": "spotify:playlist:1ONoVwmw96EtWKfcdsrVZf"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "6MkLRE2XRC1FiEghfzzNme",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000d72c9b469523bc0f7b02f84e190f",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "The Official Future Rave Playlist",
+									"uri": "spotify:playlist:6MkLRE2XRC1FiEghfzzNme"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "25keHWiQykIwcHkuOoqZEw",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000d72c7c213b7757ce155602b4f0e6",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "The Official Jack Back Playlist",
+									"uri": "spotify:playlist:25keHWiQykIwcHkuOoqZEw"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "6PQdiveYJgp1trv6IYl99p",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://image-cdn-fa.spotifycdn.com/image/ab67706c0000d72c8a5d72694adbbee5bb610383",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "David Guetta Remixes",
+									"uri": "spotify:playlist:6PQdiveYJgp1trv6IYl99p"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "1DHhWaAzOTvZEG5vDHbHOD",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://image-cdn-ak.spotifycdn.com/image/ab67706c0000da84ed142b8d283c9dffbb5c7553",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "David Guetta - Top Hits",
+									"uri": "spotify:playlist:1DHhWaAzOTvZEG5vDHbHOD"
+								}
+							}
+						]
+					}
+				},
+				"relatedContent": {
+					"appearsOn": {
+						"items": [
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e021dec5cdebb0ea9b3df5fd0ca",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048511dec5cdebb0ea9b3df5fd0ca",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2731dec5cdebb0ea9b3df5fd0ca",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2010 },
+											"name": "Only One Flo (Part 1)",
+											"type": "ALBUM",
+											"uri": "spotify:album:1TwNATuAqnNjTd5BSvFZlS"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e021192ae62dfe52262a3cc3fed",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048511192ae62dfe52262a3cc3fed",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2731192ae62dfe52262a3cc3fed",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2018 },
+											"name": "Speak Your Mind (Deluxe)",
+											"type": "ALBUM",
+											"uri": "spotify:album:7lPoGKpCGgdKFAxpudhAH5"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e027805aebd5a39023d553ada3a",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048517805aebd5a39023d553ada3a",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2737805aebd5a39023d553ada3a",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2011 },
+											"name": "Who You Are (Platinum Edition)",
+											"type": "ALBUM",
+											"uri": "spotify:album:0BZbTNqpXFg6lxNv78X7Lp"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02015e9561331b4f4fd120271c",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851015e9561331b4f4fd120271c",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273015e9561331b4f4fd120271c",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2022 },
+											"name": "LLNM2",
+											"type": "ALBUM",
+											"uri": "spotify:album:6DJslQtfD7mGFGZpfiyrVf"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e02d9b914089ee1525387783989",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d00004851d9b914089ee1525387783989",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b273d9b914089ee1525387783989",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2024 },
+											"name": "Artificial Paradise (Deluxe)",
+											"type": "ALBUM",
+											"uri": "spotify:album:4yHDaLGrPSwUfJNVUIvFgg"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e026dee21d6cd1823e4d6231d37",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048516dee21d6cd1823e4d6231d37",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2736dee21d6cd1823e4d6231d37",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2012 },
+											"name": "Unapologetic (Deluxe)",
+											"type": "ALBUM",
+											"uri": "spotify:album:5pLlGJrxuQO3jMoQe1XxZY"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e029f583dbe85a995819e69b8bb",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d000048519f583dbe85a995819e69b8bb",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b2739f583dbe85a995819e69b8bb",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2023 },
+											"name": "Cosmo",
+											"type": "ALBUM",
+											"uri": "spotify:album:3nEa7WJXcruywRIZXu6qRE"
+										}
+									]
+								}
+							},
+							{
+								"releases": {
+									"items": [
+										{
+											"coverArt": {
+												"sources": [
+													{
+														"height": 300,
+														"url": "https://i.scdn.co/image/ab67616d00001e0227656009177a4273a62c758a",
+														"width": 300
+													},
+													{
+														"height": 64,
+														"url": "https://i.scdn.co/image/ab67616d0000485127656009177a4273a62c758a",
+														"width": 64
+													},
+													{
+														"height": 640,
+														"url": "https://i.scdn.co/image/ab67616d0000b27327656009177a4273a62c758a",
+														"width": 640
+													}
+												]
+											},
+											"date": { "year": 2011 },
+											"name": "TY.O (International Version)",
+											"type": "ALBUM",
+											"uri": "spotify:album:0TjgUvNEDN2PegfZVkoggi"
+										}
+									]
+								}
+							}
+						]
+					},
+					"featuringV2": {
+						"items": [
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1DZ06evO0TXLQk",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/thisisv3/1Cs0zKBU1kc0i8ypK3B9ai/en",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "This Is David Guetta",
+									"uri": "spotify:playlist:37i9dQZF1DZ06evO0TXLQk"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1E4yMk2wN0k5C4",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/radio/artist/1Cs0zKBU1kc0i8ypK3B9ai/en-GB",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "David Guetta Radio",
+									"uri": "spotify:playlist:37i9dQZF1E4yMk2wN0k5C4"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1DWVuV87wUBNwc",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://i.scdn.co/image/ab67706f000000023d664ea19ee1de317ca8436e",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "Hits du Moment",
+									"uri": "spotify:playlist:37i9dQZF1DWVuV87wUBNwc"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1DXbS5WTN5nKF7",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://i.scdn.co/image/ab67706f0000000222d048216f8ba1f4f99a90ed",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "Hit Radio",
+									"uri": "spotify:playlist:37i9dQZF1DXbS5WTN5nKF7"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1DX8685vIIepKh",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://i.scdn.co/image/ab67706f000000022c8c1bd4c38e8f2d2dbbbe71",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "Garde la pêche !",
+									"uri": "spotify:playlist:37i9dQZF1DX8685vIIepKh"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1DWYAaAF4glatK",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://i.scdn.co/image/ab67706f00000002896cbd5218bdc2e62b103e6a",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "hits de l'été 2025",
+									"uri": "spotify:playlist:37i9dQZF1DWYAaAF4glatK"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1DX742okrrpwah",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://i.scdn.co/image/ab67706f00000002ee09d749485e4685a9fbd34e",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "New Music Friday France",
+									"uri": "spotify:playlist:37i9dQZF1DX742okrrpwah"
+								}
+							},
+							{
+								"data": {
+									"__typename": "Playlist",
+									"id": "37i9dQZF1DXacPj7eARo6k",
+									"images": {
+										"items": [
+											{
+												"sources": [
+													{
+														"height": null,
+														"url": "https://i.scdn.co/image/ab67706f0000000215d543c64a99e05eac775977",
+														"width": null
+													}
+												]
+											}
+										]
+									},
+									"name": "Années 2000",
+									"uri": "spotify:playlist:37i9dQZF1DXacPj7eARo6k"
+								}
+							}
+						]
+					},
+					"relatedArtists": {
+						"items": [
+							{
+								"profile": { "name": "AFROJACK" },
+								"uri": "spotify:artist:4D75GcNG95ebPtNvoNVXhz",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5eb78484e23002e1607039af9b9",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f17878484e23002e1607039af9b9",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab6761610000517478484e23002e1607039af9b9",
+												"width": 320
+											}
+										]
+									}
+								}
+							},
+							{
+								"profile": { "name": "Calvin Harris" },
+								"uri": "spotify:artist:7CajNmpbOovFoOoasH2HaY",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5eb8ebba5e60113b48de8c11f6b",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f1788ebba5e60113b48de8c11f6b",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab676161000051748ebba5e60113b48de8c11f6b",
+												"width": 320
+											}
+										]
+									}
+								}
+							},
+							{
+								"profile": { "name": "Tiësto" },
+								"uri": "spotify:artist:2o5jDhtHVPhrJdv3cEQ99Z",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5ebf4973f7346a2f35e56b63d57",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f178f4973f7346a2f35e56b63d57",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab67616100005174f4973f7346a2f35e56b63d57",
+												"width": 320
+											}
+										]
+									}
+								}
+							},
+							{
+								"profile": { "name": "Robin Schulz" },
+								"uri": "spotify:artist:3t5xRXzsuZmMDkQzgOX35S",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5eb869ddcc058c5ff2a459ad8d5",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f178869ddcc058c5ff2a459ad8d5",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab67616100005174869ddcc058c5ff2a459ad8d5",
+												"width": 320
+											}
+										]
+									}
+								}
+							},
+							{
+								"profile": { "name": "Pitbull" },
+								"uri": "spotify:artist:0TnOYISbd1XYRBk9myaseg",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5eb8d8ac7290d0fe2d12fb6e4d9",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f1788d8ac7290d0fe2d12fb6e4d9",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab676161000051748d8ac7290d0fe2d12fb6e4d9",
+												"width": 320
+											}
+										]
+									}
+								}
+							},
+							{
+								"profile": { "name": "Swedish House Mafia" },
+								"uri": "spotify:artist:1h6Cn3P4NGzXbaXidqURXs",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5eb9614fcf985ad6fc5b4a7c3de",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f1789614fcf985ad6fc5b4a7c3de",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab676161000051749614fcf985ad6fc5b4a7c3de",
+												"width": 320
+											}
+										]
+									}
+								}
+							},
+							{
+								"profile": { "name": "Avicii" },
+								"uri": "spotify:artist:1vCWHaC5f2uS3yhpwWbIA6",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5ebae07171f989fb39736674113",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f178ae07171f989fb39736674113",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab67616100005174ae07171f989fb39736674113",
+												"width": 320
+											}
+										]
+									}
+								}
+							},
+							{
+								"profile": { "name": "Flo Rida" },
+								"uri": "spotify:artist:0jnsk9HBra6NMjO2oANoPY",
+								"visuals": {
+									"avatarImage": {
+										"sources": [
+											{
+												"height": 640,
+												"url": "https://i.scdn.co/image/ab6761610000e5eb655ca8f3196953554b479452",
+												"width": 640
+											},
+											{
+												"height": 160,
+												"url": "https://i.scdn.co/image/ab6761610000f178655ca8f3196953554b479452",
+												"width": 160
+											},
+											{
+												"height": 320,
+												"url": "https://i.scdn.co/image/ab67616100005174655ca8f3196953554b479452",
+												"width": 320
+											}
+										]
+									}
+								}
+							}
+						]
+					}
+				},
+				"stats": {
+					"followers": 27671089,
+					"monthlyListeners": 80644093
+				},
+				"uri": "spotify:artist:1Cs0zKBU1kc0i8ypK3B9ai",
+				"visuals": {
+					"avatarImage": {
+						"extractedColors": {
+							"colorDark": { "hex": "#535353" },
+							"colorRaw": { "hex": "#535353" }
+						},
+						"sources": [
+							{
+								"height": 160,
+								"url": "https://i.scdn.co/image/ab6761610000f178f150017ca69c8793503c2d4f",
+								"width": 160
+							},
+							{
+								"height": 320,
+								"url": "https://i.scdn.co/image/ab67616100005174f150017ca69c8793503c2d4f",
+								"width": 320
+							},
+							{
+								"height": 640,
+								"url": "https://i.scdn.co/image/ab6761610000e5ebf150017ca69c8793503c2d4f",
+								"width": 640
+							}
+						]
+					}
+				}
+			}
+		},
+		"recommendations": {},
+		"saved": {}
+	},
+	"playback": {
+		"current": null,
+		"hasSkippedThisSession": false,
+		"isBuffering": false,
+		"heardAudio": false,
+		"initiatedPlayback": false
+	},
+	"request": {
+		"hasPreviousLikes": false,
+		"isBanned": false,
+		"entityView": null,
+		"albumUri": ""
+	},
+	"search": {
+		"isFetching": false,
+		"results": null,
+		"query": null,
+		"error": null,
+		"recentSearches": []
+	},
+	"toast": { "message": null, "type": "default", "action": null },
+	"ui": {
+		"modal": "now_playing_bar",
+		"nowPlayingView": false,
+		"dialog": null,
+		"errorView": false
+	},
+	"home": { "isLoading": false, "hasError": false, "data": null },
+	"onDemandPlaylists": { "fetched": false, "items": [] },
+	"contextMenu": { "isVisible": false },
+	"colorExtraction": { "colors": {} },
+	"lyrics": { "status": "UNAVAILABLE" },
+	"seoLyrics": { "status": "UNAVAILABLE", "unauthEnabled": false },
+	"seoExperiment": { "status": "LOADED", "artist": {} },
+	"browse": {
+		"grid": {
+			"isLoading": false,
+			"sections": null,
+			"hasFailedAttempts": false
+		},
+		"pages": {}
+	},
+	"internalLinkRecommender": {
+		"tracks": { "status": "UNAVAILABLE" },
+		"shows": { "status": "UNAVAILABLE" },
+		"episodes": { "status": "UNAVAILABLE" },
+		"similarAlbums": { "status": "UNAVAILABLE" },
+		"similarAudiobooks": { "status": "UNAVAILABLE" },
+		"trackPlaylists": { "status": "UNAVAILABLE" }
+	},
+	"playlistRecommendedTracks": { "playlist": { "status": "UNAVAILABLE" } },
+	"concertHub": { "concertFeed": null, "location": null },
+	"masthead": { "isCrawlerBot": false },
+	"section": {},
+	"countryHubs": {},
+	"entityPreview": { "data": null }
+}
