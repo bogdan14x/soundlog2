@@ -31,7 +31,7 @@ describe('SpotifyDataOrchestrator', () => {
       uri: 'spotify:album:123'
     }
 
-    const normalized = normalizeScrapedReleases([scrapedRelease], 'US')
+    const normalized = normalizeScrapedReleases([scrapedRelease])
     expect(normalized).toHaveLength(1)
     expect(normalized[0].name).toBe('Test Album')
     expect(normalized[0].type).toBe('album')
