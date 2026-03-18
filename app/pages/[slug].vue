@@ -13,12 +13,14 @@ import RadioShows from '../components/artist/RadioShows.vue'
 import NewsletterCTA from '../components/artist/NewsletterCTA.vue'
 import SocialLinks from '../components/artist/SocialLinks.vue'
 import PageFooter from '../components/artist/PageFooter.vue'
+import { useAuth } from '../composables/useAuth'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
 const route = useRoute()
 const slug = route.params.slug as string
+const { user } = useAuth()
 
 // Detect country using dayjs
 const detectedCountry = dayjs.tz.guess()
@@ -58,6 +60,9 @@ interface ApiArtist {
 interface ApiSuccessResponse {
   artist: ApiArtist
   releases: ApiRelease[]
+  ownership?: {
+    spotifyId: string
+  }
 }
 
 interface ApiErrorResponse {
@@ -108,6 +113,18 @@ const artistData = computed(() => {
   }
 })
 
+// Check if current user owns this artist
+const isOwner = computed(() => {
+  if (!user.value || !apiData.value) return false
+  
+  const response = apiData.value as ApiResponse
+  if ('statusCode' in response || !('ownership' in response)) {
+    return false
+  }
+  
+  return response.ownership?.spotifyId === user.value.id
+})
+
 // Set page title
 useHead({
   title: artistData.value ? `${artistData.value.name} - SoundLog` : 'Artist - SoundLog'
@@ -121,6 +138,19 @@ useHead({
       :bio="artistData.bio" 
       :heroImage="artistData.heroImage" 
     />
+    
+    <!-- Edit Button for Owners -->
+    <div v-if="isOwner" class="fixed bottom-6 right-6 z-50">
+      <NuxtLink 
+        to="/dashboard/profile" 
+        class="bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+        </svg>
+        Edit Profile
+      </NuxtLink>
+    </div>
     
     <section v-if="artistData.featuredRelease" class="py-12 px-4 max-w-6xl mx-auto">
       <FeaturedRelease 
