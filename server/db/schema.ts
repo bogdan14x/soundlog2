@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm'
+import { sql, relations } from 'drizzle-orm'
 import {
   boolean,
   date,
@@ -9,7 +9,6 @@ import {
   timestamp,
   uuid,
   varchar,
-  index,
   uniqueIndex
 } from 'drizzle-orm/pg-core'
 
@@ -111,6 +110,13 @@ export const artistIntegrations = pgTable('artist_integrations', {
 }, (table) => ({
   uniqueArtistProvider: uniqueIndex('artist_integrations_artist_provider_unique')
     .on(table.artistId, table.provider)
+}))
+
+export const artistIntegrationsRelations = relations(artistIntegrations, ({ one }) => ({
+  artist: one(artists, {
+    fields: [artistIntegrations.artistId],
+    references: [artists.id]
+  })
 }))
 
 export const schema = {
