@@ -3,6 +3,7 @@
 ;(global as any).definePageMeta = (meta: any) => {}
 ;(global as any).defineNuxtRouteMiddleware = (fn: any) => fn
 ;(global as any).navigateTo = (path: string) => path
+;(global as any).useHead = (input: any) => input
 
 // Import Vue composition API functions to make them available globally
 import { ref, computed, reactive, watch, watchEffect, onMounted, onUnmounted } from 'vue'
