@@ -48,6 +48,22 @@ The page should feel like a modern product site, not a generic startup template.
 
 The landing page should be a single scrollable homepage with this sequence.
 
+### 0. Page Chrome
+
+Purpose: give the page stable navigation and a clear frame.
+
+Content:
+- simple header with product mark / name
+- primary actions in header:
+  - `View a live example`
+  - `Create your page`
+- for authenticated users, include a visible `Go to dashboard` path
+- lightweight footer with product positioning, example link, login/signup link, and basic trust/privacy surface
+
+Mobile behavior:
+- header actions may collapse into one primary CTA plus one secondary text link
+- footer should stay compact and readable, not become a sitemap dump
+
 ### 1. Hero
 
 Purpose: quickly explain the product and offer immediate action.
@@ -56,11 +72,16 @@ Content:
 - headline focused on artist value
 - short supporting copy tying artist control to fan discovery
 - primary CTA: `Create your page`
-- secondary CTA: `View a live example`
+- secondary CTA: `See what fans see`
 - right-side or below-fold visual preview showing a polished artist profile layout
 
 Expected message:
 "SoundLog gives artists one polished page for releases, socials, shows, and fan conversion."
+
+Dual-audience requirement:
+- the hero must explicitly support both audiences
+- artist path = make your page
+- visitor path = experience an artist page the way a fan would
 
 ### 2. Product Proof Strip
 
@@ -84,7 +105,10 @@ Content:
   - release and content discovery
   - fast editing and updates
 
-Each card should feel product-specific, not like generic SaaS marketing.
+Boundary:
+- this section is artist-benefit-first
+- it should not duplicate the walkthrough details from later sections
+- each card should feel product-specific, not like generic SaaS marketing
 
 ### 4. Fan Experience Walkthrough
 
@@ -99,7 +123,10 @@ Content:
   - socials
   - newsletter or conversion block
 
-This section should reinforce that SoundLog is not just a bio-link list.
+Boundary:
+- this section is fan-experience-first
+- it should visually borrow from the current `[slug]` page modules, not restate feature-card marketing copy
+- it should reinforce that SoundLog is not just a bio-link list
 
 ### 5. Example Artist Preview
 
@@ -109,6 +136,16 @@ Content:
 - a focused preview panel or mock browser frame
 - CTA to open a live example route
 - preview should borrow structure from the current `[slug]` artist page design so the experience feels real
+
+Example route rules:
+- use one canonical sample artist slug as the primary live example target
+- keep a fallback slug or fallback destination if the canonical example is unavailable
+- if no stable public example exists yet, route the CTA to a curated placeholder state that does not 404
+- the spec assumes product-owned seeded content, not user-generated content chosen at runtime
+
+Link behavior:
+- default behavior should be same-tab navigation to keep the product flow cohesive
+- opening in a new tab is not the default
 
 ### 6. Closing CTA
 
@@ -147,9 +184,13 @@ Use repeated but intentional CTAs:
 
 CTA destination defaults:
 - `Create your page` → `/login`
-- `View a live example` / `Explore an example` → a known public artist route when available
+- `See what fans see` / `Explore an example` → a known public artist route when available
 
-If there is no stable public artist route yet, use a curated fallback route or temporary seeded example page.
+If there is no stable public artist route yet, use a curated public fallback route or temporary seeded example page.
+
+Login alignment rule:
+- landing-page copy should promise the same outcome the login page supports today
+- it must not imply pricing plans, team workflows, analytics dashboards, or publishing mechanics that are not present in the current auth/product flow
 
 ## Visual Direction
 
@@ -192,6 +233,10 @@ The layout must work on:
 - remains the authentication page
 - is the main signup entry from landing-page CTAs
 
+Authenticated user behavior:
+- authenticated users may still access `/login`, but the preferred UX is to redirect them to `/dashboard`
+- landing page CTA copy and login-page messaging should stay aligned so users do not feel they entered a different product
+
 ### Authenticated Users
 - authenticated users may still see the landing page at `/`
 - optionally show a lightweight `Go to dashboard` path in the header or hero area
@@ -222,10 +267,12 @@ Do not add a CMS or remote content dependency for this first version.
 
 ## Error Handling and Edge Cases
 
-1. If there is no sample artist route available, the example CTA should gracefully fall back to `/login` or a non-broken placeholder route.
+1. If there is no sample artist route available, the example CTA should gracefully fall back to a public, non-broken placeholder or seeded example route.
 2. If the user is authenticated, CTAs can remain visible, but at least one path to `/dashboard` should be present.
 3. The page should not depend on client-only auth to render core content.
 4. Motion should degrade cleanly for reduced-motion users.
+5. If the example artist route exists but returns incomplete data, the landing page preview should still look polished and the CTA should avoid sending users into a broken state.
+6. Header and footer navigation should remain useful on mobile without hiding the primary conversion path.
 
 ## Testing Strategy
 
@@ -238,11 +285,14 @@ Do not add a CMS or remote content dependency for this first version.
 - `/` renders the landing page content
 - `/login` still renders the login page
 - public example CTA resolves correctly
+- authenticated and unauthenticated header states render the correct primary paths
 
 ### Visual / UX Verification
 - mobile and desktop layout review
 - spacing and hierarchy review
 - verify the page does not resemble the Nuxt starter or generic placeholder content
+- verify artist CTA and fan CTA are both visible and understandable above the fold
+- verify the live-example path feels like a real product journey rather than a dead-end demo
 
 ## Success Criteria
 
@@ -253,6 +303,32 @@ Do not add a CMS or remote content dependency for this first version.
 5. The visual design feels modern and product-quality
 6. The page is responsive and production-ready
 
-## Open Implementation Note
+## Frontend Build Brief
 
-When implementation starts, use the `frontend-design` skill for the actual page build so the result is distinctive, polished, and avoids generic AI landing-page aesthetics.
+When implementation starts, use the `frontend-design` skill for the actual page build.
+
+### Required visual inheritance
+- borrow visual cues from `app/pages/[slug].vue` and its related artist components
+- make the landing page feel connected to the real product, especially in preview areas
+- use realistic artist-page modules rather than abstract dashboard blocks
+
+### Anti-generic constraints
+- avoid generic SaaS gradient blobs and empty floating cards
+- avoid default-looking startup hero patterns with vague copy and no product proof
+- avoid a monochrome layout that strips all music personality from the page
+- avoid making the page feel more like a dashboard than a public-facing product story
+
+### Required quality bar
+- strong desktop hero composition
+- mobile layout that preserves both CTAs clearly
+- one clear fan-discovery path that feels co-equal to artist signup
+- accessible semantic heading structure
+- meaningful page title and meta description
+- reduced-motion-safe animation behavior
+
+### Verification checklist for implementation
+1. `/` looks like a real landing page, not a placeholder
+2. the first screen explains the product and offers both audience paths
+3. the example preview visually resembles the actual artist experience
+4. the page is visually polished on desktop and mobile
+5. the page does not regress `/login` or public artist routes
