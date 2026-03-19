@@ -543,9 +543,12 @@ Add assertions such as:
 
 ```ts
 expect(wrapper.findAll('h1')).toHaveLength(1)
+expect(useHeadMock).toHaveBeenCalledWith(
+  expect.objectContaining({
+    title: expect.stringContaining('SoundLog')
+  })
+)
 ```
-
-If your test harness can support it cleanly, also assert that `useHead` is called with a meaningful title and description.
 
 - [ ] **Step 2: Run test to verify it fails**
 
@@ -557,7 +560,8 @@ Expected: FAIL because semantic heading / metadata is not fully in place.
 
 Ensure the landing page has:
 - exactly one `h1`
-- meaningful `useHead({ title, meta })`
+- meaningful `useHead({ title, meta })` with a non-placeholder description
+- semantic heading order for major sections
 - reduced-motion-safe custom motion behavior if motion is added
 
 - [ ] **Step 4: Run test to verify it passes**
@@ -620,44 +624,52 @@ git commit -m "feat: align landing page actions with auth state"
 
 ---
 
-## Task 13: Apply Frontend-Design Polish
+## Task 13: Add Route-Level Landing Page Verification
 
 **Files:**
-- Modify: `app/pages/index.vue`
-- Modify: `app/components/landing/*.vue`
+- Create: `test/pages/index.integration.test.ts`
+- Modify: `test/pages/login.test.ts`
 
-- [ ] **Step 1: Write one quality-focused failing assertion**
+- [ ] **Step 1: Write the failing route test**
 
-Extend `test/pages/index.test.ts` so the assembled page explicitly guarantees both audience paths are visible in the final hero.
+Write a router-based test similar to `test/pages/[slug].test.ts` that mounts the route and verifies `/` renders the landing page content through real routing behavior.
+
+Example skeleton:
+
+```ts
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [
+    { path: '/', component: HomePage },
+    { path: '/login', component: LoginPage }
+  ]
+})
+```
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `npm test -- test/pages/index.test.ts`
+Run: `npm test -- test/pages/index.integration.test.ts`
 
-Expected: FAIL before the polish change you are about to make.
+Expected: FAIL because the route-level test file does not exist yet.
 
-- [ ] **Step 3: Apply focused polish**
+- [ ] **Step 3: Write minimal implementation**
 
-Use `@frontend-design` principles to improve:
-- spacing and hierarchy
-- preview-card depth
-- mobile composition
-- CTA prominence
-- product/artist-page visual continuity
-
-Do not add new sections beyond the approved spec.
+Implement `test/pages/index.integration.test.ts` and extend `test/pages/login.test.ts` so the plan verifies:
+- `/` renders landing page content
+- `/login` still renders login content
+- route behavior is tested via router navigation, not only direct component mount
 
 - [ ] **Step 4: Verify no test regressions**
 
-Run: `npm test -- test/pages/index.test.ts test/components/landing/LandingHero.test.ts test/components/landing/LandingHeader.test.ts`
+Run: `npm test -- test/pages/index.integration.test.ts test/pages/login.test.ts`
 
 Expected: PASS.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add app/pages/index.vue app/components/landing/
-git commit -m "feat: polish landing page design"
+git add test/pages/index.integration.test.ts test/pages/login.test.ts
+git commit -m "test: add route-level landing page verification"
 ```
 
 ---
@@ -669,6 +681,7 @@ git commit -m "feat: polish landing page design"
 - Test: `test/components/landing/landingContent.test.ts`
 - Test: `test/components/landing/LandingHeader.test.ts`
 - Test: `test/components/landing/LandingHero.test.ts`
+- Test: `test/pages/index.integration.test.ts`
 - Test: `test/pages/login.test.ts`
 
 - [ ] **Step 1: Run the landing page-focused test set**
@@ -686,7 +699,7 @@ Expected: PASS.
 Run:
 
 ```bash
-npm test -- test/pages/login.test.ts
+npm test -- test/pages/index.integration.test.ts test/pages/login.test.ts
 ```
 
 Expected: PASS.
@@ -720,7 +733,7 @@ Check:
 - [ ] **Step 7: Commit only if verification produced changes**
 
 ```bash
-git add app/pages/index.vue app/components/landing/ test/ README.md
+git add app/pages/index.vue app/components/landing/ test/
 git commit -m "test: verify landing page implementation"
 ```
 
