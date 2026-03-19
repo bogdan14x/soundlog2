@@ -1,3 +1,29 @@
+<script setup>
+import { Auth } from '@supa-kit/auth-ui-vue'
+import { useSupabaseClient, definePageMeta } from '#imports'
+import { useRuntimeConfig } from '#app'
+
+definePageMeta({
+  middleware: 'guest'
+})
+
+const supabaseClient = useSupabaseClient()
+const runtimeConfig = useRuntimeConfig()
+
+const signInWithSpotify = async () => {
+  const { error } = await supabaseClient.auth.signInWithOAuth({
+    provider: 'spotify',
+    options: {
+      redirectTo: `${runtimeConfig.public.siteUrl}/onboarding/spotify`
+    }
+  })
+
+  if (error) {
+    console.error('Spotify OAuth error:', error)
+  }
+}
+</script>
+
 <template>
   <AuthLayout>
     <template #title>Sign in to SoundLog</template>
@@ -32,25 +58,3 @@
     </div>
   </AuthLayout>
 </template>
-
-<script setup>
-import { Auth } from '@supa-kit/auth-ui-vue'
-import { useSupabaseClient } from '#imports'
-import { useRuntimeConfig } from '#app'
-
-const supabaseClient = useSupabaseClient()
-const runtimeConfig = useRuntimeConfig()
-
-const signInWithSpotify = async () => {
-  const { data, error } = await supabaseClient.auth.signInWithOAuth({
-    provider: 'spotify',
-    options: {
-      redirectTo: `${runtimeConfig.public.siteUrl}/onboarding/spotify`
-    }
-  })
-
-  if (error) {
-    console.error('Spotify OAuth error:', error)
-  }
-}
-</script>

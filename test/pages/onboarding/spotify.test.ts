@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import OnboardingSpotifyPage from '@/app/pages/onboarding/spotify.vue'
-import OnboardingWizard from '@/app/components/OnboardingWizard.vue'
+import OnboardingSpotifyPage from '../../../app/pages/onboarding/spotify.vue'
+import OnboardingWizard from '../../../app/components/OnboardingWizard.vue'
 
 describe('OnboardingSpotifyPage', () => {
   it('renders Spotify connection header', () => {

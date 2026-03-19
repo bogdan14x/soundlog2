@@ -71,9 +71,35 @@ npm test -- path/to/test.file
 # Run type check
 npm run typecheck
 
+# Regenerate Supabase database types
+npm run supabase:types
+
 # Run linter
 npm run lint
 ```
+
+### Regenerating Supabase Types
+
+The Nuxt Supabase module reads `app/types/database.types.ts` for its `Database` type.
+
+To regenerate that file from your real Supabase schema:
+
+1. Install the Supabase CLI if needed
+2. Set `SUPABASE_PROJECT_ID` in your shell
+3. Run:
+
+```bash
+npm run supabase:types
+```
+
+Example:
+
+```bash
+export SUPABASE_PROJECT_ID=your-project-id
+npm run supabase:types
+```
+
+You can find the project ID in the Supabase dashboard URL or project settings.
 
 ### Building for Production
 

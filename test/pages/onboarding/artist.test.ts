@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import OnboardingArtistPage from '@/app/pages/onboarding/artist.vue'
-import OnboardingWizard from '@/app/components/OnboardingWizard.vue'
+import OnboardingArtistPage from '../../../app/pages/onboarding/artist.vue'
+import OnboardingWizard from '../../../app/components/OnboardingWizard.vue'
 
 describe('OnboardingArtistPage', () => {
   it('renders artist selection header', () => {

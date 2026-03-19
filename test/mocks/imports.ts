@@ -3,6 +3,8 @@ import { ref, computed, reactive } from 'vue'
 
 export { ref, computed, reactive }
 
+export const mockSupabaseUser = ref<any | null>(null)
+
 export const useSupabaseClient = vi.fn(() => ({
   auth: {
     signInWithOAuth: vi.fn(() => Promise.resolve({ data: { user: null }, error: null })),
@@ -14,6 +16,8 @@ export const useSupabaseClient = vi.fn(() => ({
     }))
   }
 }))
+
+export const useSupabaseUser = vi.fn(() => mockSupabaseUser)
 
 export const useRuntimeConfig = vi.fn(() => ({
   public: {

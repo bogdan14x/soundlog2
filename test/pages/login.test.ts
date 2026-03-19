@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import LoginPage from '@/app/pages/login.vue'
-import AuthLayout from '@/app/components/AuthLayout.vue'
+import LoginPage from '../../app/pages/login.vue'
+import AuthLayout from '../../app/components/AuthLayout.vue'
 
 describe('LoginPage', () => {
   it('renders login form', () => {

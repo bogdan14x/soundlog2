@@ -1,5 +1,16 @@
 import { ref } from 'vue'
 
+interface ProfileResponse {
+  success: boolean
+  data?: {
+    onboardingCompleted?: boolean
+  }
+}
+
+interface CompleteOnboardingResponse {
+  success: boolean
+}
+
 export function useOnboarding() {
   const isCompleted = ref(false)
   const isLoading = ref(true)
@@ -8,7 +19,7 @@ export function useOnboarding() {
     try {
       isLoading.value = true
       // Fetch artist profile to check onboarding status
-      const response = await $fetch('/api/dashboard/profile') as any
+      const response = await $fetch('/api/dashboard/profile') as ProfileResponse
       
       if (response.success && response.data) {
         // Assuming the API returns onboardingCompleted field
@@ -26,7 +37,7 @@ export function useOnboarding() {
     try {
       const response = await $fetch('/api/onboarding/complete', {
         method: 'POST'
-      })
+      }) as CompleteOnboardingResponse
       
       if (response.success) {
         isCompleted.value = true

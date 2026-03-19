@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import OnboardingProfilePage from '@/app/pages/onboarding/profile.vue'
-import OnboardingWizard from '@/app/components/OnboardingWizard.vue'
+import OnboardingProfilePage from '../../../app/pages/onboarding/profile.vue'
+import OnboardingWizard from '../../../app/components/OnboardingWizard.vue'
 
 describe('OnboardingProfilePage', () => {
   it('renders profile setup header', () => {

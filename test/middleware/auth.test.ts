@@ -1,50 +1,23 @@
-import { describe, it, expect, vi } from 'vitest'
-
-// Mock the composables
-vi.mock('../../app/composables/useAuth', () => ({
-  useAuth: vi.fn()
-}))
-
-import { useAuth } from '../../app/composables/useAuth'
-import { navigateTo } from '#imports'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { mockSupabaseUser } from '../mocks/imports'
 import authMiddleware from '../../app/middleware/auth'
 
-describe('Auth Middleware', () => {
-  it('redirects to /login if user is not authenticated', async () => {
-    // Arrange
-    vi.mocked(useAuth).mockReturnValue({
-      isAuthenticated: { value: false },
-      user: { value: null },
-      isLoading: { value: false }
-    } as any)
+describe('auth middleware', () => {
+  beforeEach(() => {
+    mockSupabaseUser.value = null
+  })
 
-    const mockTo = { path: '/dashboard' } as any
-    const mockFrom = { path: '/' } as any
+  it('redirects unauthenticated users to /login', async () => {
+    const result = await authMiddleware({ path: '/dashboard' } as any, { path: '/' } as any)
 
-    // Act
-    const result = await authMiddleware(mockTo, mockFrom)
-
-    // Assert
-    expect(useAuth).toHaveBeenCalled()
     expect(result).toBe('/login')
   })
 
-  it('allows access if user is authenticated', async () => {
-    // Arrange
-    vi.mocked(useAuth).mockReturnValue({
-      isAuthenticated: { value: true },
-      user: { value: { id: '123' } },
-      isLoading: { value: false }
-    } as any)
+  it('allows authenticated users through', async () => {
+    mockSupabaseUser.value = { id: 'user-1' }
 
-    const mockTo = { path: '/dashboard' } as any
-    const mockFrom = { path: '/' } as any
+    const result = await authMiddleware({ path: '/dashboard' } as any, { path: '/' } as any)
 
-    // Act
-    const result = await authMiddleware(mockTo, mockFrom)
-
-    // Assert
-    expect(useAuth).toHaveBeenCalled()
     expect(result).toBeUndefined()
   })
 })

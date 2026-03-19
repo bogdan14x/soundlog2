@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import OnboardingIndexPage from '@/app/pages/onboarding/index.vue'
+import OnboardingIndexPage from '../../../app/pages/onboarding/index.vue'
 
 describe('OnboardingIndexPage', () => {
   it('renders welcome message', () => {
