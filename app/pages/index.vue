@@ -36,6 +36,12 @@ useHead({
           >
             Go to dashboard
           </NuxtLink>
+          <NuxtLink
+            to="/demo/link-matcher"
+            class="inline-flex items-center justify-center rounded-full border border-emerald-400/40 px-6 py-3 text-sm font-semibold text-emerald-300 transition hover:border-emerald-300 hover:bg-emerald-400/10"
+          >
+            Open link matcher demo
+          </NuxtLink>
         </div>
       </div>
 
@@ -54,6 +60,12 @@ useHead({
             <div class="rounded-2xl border border-white/10 bg-slate-900/60 p-4">
               <p class="font-semibold text-white">Protected management</p>
               <p class="mt-2">Dashboard routes still redirect unauthenticated users to login.</p>
+            </div>
+            <div class="rounded-2xl border border-emerald-400/20 bg-emerald-400/5 p-4 sm:col-span-2">
+              <p class="font-semibold text-white">Internal demo tooling</p>
+              <p class="mt-2">
+                The provider-backed link matcher demo remains available at <span class="font-mono text-emerald-300">/demo/link-matcher</span> for manual testing.
+              </p>
             </div>
           </div>
         </div>

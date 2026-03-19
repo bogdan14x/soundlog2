@@ -14,8 +14,18 @@ import {
 
 export const releaseTypeEnum = pgEnum('release_type', ['single', 'album', 'ep', 'compilation'])
 
-export type TrackPlatform = 'spotify' | 'apple_music' | 'youtube_music' | 'tidal' | 'deezer'
-export type ReleaseResolutionStatus = 'resolved' | 'pending' | 'failed' | 'unsupported'
+export const trackPlatforms = [
+  'spotify',
+  'apple_music',
+  'youtube_music',
+  'tidal',
+  'deezer'
+] as const
+
+export const releaseResolutionStatuses = ['resolved', 'pending', 'failed', 'unsupported'] as const
+
+export type TrackPlatform = (typeof trackPlatforms)[number]
+export type ReleaseResolutionStatus = (typeof releaseResolutionStatuses)[number]
 
 export type ReleaseTrack = {
   spotifyId: string
