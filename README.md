@@ -1,6 +1,112 @@
-# Nuxt Minimal Starter
+# SoundLog2
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A music logging and discovery application built with Nuxt and Supabase.
+
+## Supabase Authentication Setup
+
+SoundLog2 uses Supabase for user authentication and data management.
+
+### Environment Configuration
+
+Copy the `.env.example` file to `.env` and fill in your credentials:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` with your actual Supabase and Spotify credentials:
+
+```bash
+# Supabase Configuration
+SUPABASE_URL=your-supabase-url
+SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+
+# Spotify OAuth Configuration (optional)
+SPOTIFY_CLIENT_ID=your-spotify-client-id
+SPOTIFY_CLIENT_SECRET=your-spotify-client-secret
+```
+
+### Supabase Setup
+
+1. **Create a Supabase project** at [supabase.com](https://supabase.com)
+2. **Enable Authentication**:
+   - Go to Authentication > Providers
+   - Enable Email/Password authentication
+   - Enable Spotify OAuth (if using Spotify integration)
+3. **Create Database Tables**:
+   - The app expects a `profiles` table with the following structure:
+     ```sql
+     CREATE TABLE profiles (
+       id UUID PRIMARY KEY REFERENCES auth.users(id),
+       username TEXT UNIQUE,
+       full_name TEXT,
+       avatar_url TEXT,
+       website TEXT,
+       created_at TIMESTAMPTZ DEFAULT NOW(),
+       updated_at TIMESTAMPTZ DEFAULT NOW()
+     );
+     ```
+4. **Set up Row Level Security (RLS)**:
+   - Enable RLS on the `profiles` table
+   - Create policies for authenticated users to read/write their own profile
+
+### Development
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run specific test
+npm test -- path/to/test.file
+
+# Run type check
+npm run typecheck
+
+# Regenerate Supabase database types
+npm run supabase:types
+
+# Run linter
+npm run lint
+```
+
+### Regenerating Supabase Types
+
+The Nuxt Supabase module reads `app/types/database.types.ts` for its `Database` type.
+
+To regenerate that file from your real Supabase schema:
+
+1. Install the Supabase CLI if needed
+2. Set `SUPABASE_PROJECT_ID` in your shell
+3. Run:
+
+```bash
+npm run supabase:types
+```
+
+Example:
+
+```bash
+export SUPABASE_PROJECT_ID=your-project-id
+npm run supabase:types
+```
+
+You can find the project ID in the Supabase dashboard URL or project settings.
+
+### Building for Production
+
+```bash
+npm run build
+npm run preview
+```
 
 ## Setup
 

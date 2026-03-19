@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm'
+import { sql, relations } from 'drizzle-orm'
 import {
   boolean,
   date,
@@ -8,7 +8,8 @@ import {
   text,
   timestamp,
   uuid,
-  varchar
+  varchar,
+  uniqueIndex
 } from 'drizzle-orm/pg-core'
 
 export const releaseTypeEnum = pgEnum('release_type', ['single', 'album', 'ep', 'compilation'])
@@ -41,6 +42,7 @@ export const artists = pgTable('artists', {
   name: varchar('name', { length: 200 }).notNull(),
   bio: text('bio'),
   heroImage: text('hero_image'),
+  onboardingCompleted: boolean('onboarding_completed').notNull().default(false),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { withTimezone: true })
     .notNull()
@@ -100,9 +102,38 @@ export const sessions = pgTable('sessions', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
 })
 
+export const providerEnum = pgEnum('provider', ['spotify', 'apple_music', 'tidal', 'deezer', 'youtube_music'])
+
+export const artistIntegrations = pgTable('artist_integrations', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  artistId: uuid('artist_id')
+    .notNull()
+    .references(() => artists.id, { onDelete: 'cascade' }),
+  provider: providerEnum('provider').notNull(),
+  accessToken: text('access_token').notNull(),
+  refreshToken: text('refresh_token'),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow()
+    .$onUpdateFn(() => sql`now()`)
+}, (table) => ({
+  uniqueArtistProvider: uniqueIndex('artist_integrations_artist_provider_unique')
+    .on(table.artistId, table.provider)
+}))
+
+export const artistIntegrationsRelations = relations(artistIntegrations, ({ one }) => ({
+  artist: one(artists, {
+    fields: [artistIntegrations.artistId],
+    references: [artists.id]
+  })
+}))
+
 export const schema = {
   artists,
   artistSettings,
   releases,
-  sessions
+  sessions,
+  artistIntegrations
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "artists" ADD COLUMN "onboarding_completed" boolean DEFAULT false NOT NULL;
