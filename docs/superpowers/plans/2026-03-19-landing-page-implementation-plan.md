@@ -4,7 +4,7 @@
 
 **Goal:** Build a polished homepage at `/` that drives artist signups while giving visitors a clear fan-facing discovery path.
 
-**Architecture:** Add a dedicated `app/pages/index.vue` landing page built from focused landing-page components instead of one large file. Reuse the visual language and module shapes from the public artist experience in `app/pages/[slug].vue`, while keeping CTA behavior simple: artist CTAs go to `/login`, example CTAs go to a stable public example route.
+**Architecture:** Create a dedicated `app/pages/index.vue` composed from focused landing-page components under `app/components/landing/`. Keep artist CTAs pointed at `/login`, keep fan/example CTAs public, and visually borrow from the existing public artist page structure in `app/pages/[slug].vue` without turning the landing page into a copy of that route.
 
 **Tech Stack:** Nuxt 3, Vue 3, Tailwind CSS, Vitest, `@nuxtjs/supabase`
 
@@ -15,26 +15,25 @@
 ### Create
 
 - `app/pages/index.vue` - landing page route for `/`
-- `app/components/landing/LandingHeader.vue` - top navigation with CTA links and auth-aware dashboard path
-- `app/components/landing/LandingHero.vue` - hero section with dual audience CTAs and product preview area
-- `app/components/landing/LandingProofStrip.vue` - concise capability/proof section
+- `app/components/landing/landingContent.ts` - static copy and canonical/fallback route constants
+- `app/components/landing/LandingHeader.vue` - top navigation with guest/auth-aware CTA behavior
+- `app/components/landing/LandingHero.vue` - hero section with two audience paths and product preview
+- `app/components/landing/LandingProofStrip.vue` - compact credibility/capability strip
 - `app/components/landing/LandingFeatureGrid.vue` - artist-benefit feature cards
 - `app/components/landing/LandingFanWalkthrough.vue` - fan-facing module walkthrough based on public artist page structure
-- `app/components/landing/LandingExamplePreview.vue` - live example preview and CTA block
-- `app/components/landing/LandingFinalCta.vue` - closing conversion section
-- `app/components/landing/LandingFooter.vue` - footer with product links and trust surface
-- `app/components/landing/landingContent.ts` - static copy and CTA destination constants
-- `test/pages/index.test.ts` - tests for `/` landing page rendering and CTA content
-- `test/components/landing/LandingHero.test.ts` - focused hero tests
-- `test/components/landing/LandingHeader.test.ts` - header tests for guest/authenticated state
+- `app/components/landing/LandingExamplePreview.vue` - public example preview with stable route behavior
+- `app/components/landing/LandingFinalCta.vue` - closing CTA section
+- `app/components/landing/LandingFooter.vue` - compact footer with trust/privacy surface
+- `test/pages/index.test.ts` - homepage route tests
+- `test/components/landing/landingContent.test.ts` - route strategy tests for CTA safety
+- `test/components/landing/LandingHeader.test.ts` - header behavior tests
+- `test/components/landing/LandingHero.test.ts` - hero CTA/content tests
 
 ### Modify
 
-- `app/app.vue` - wrap `NuxtPage` with any shared top-level structure only if needed; avoid reintroducing route breakage
-- `app/pages/login.vue` - optional minor copy alignment only if the landing-page messaging requires it
-- `app/assets/css/main.css` - only if the landing page needs shared utility-safe custom tokens
-- `README.md` - optional note if example route seeding or local preview behavior needs explanation
-- `vitest.config.ts` - only if new test aliases or setup are required
+- `app/pages/login.vue` - only if small copy alignment is required
+- `app/assets/css/main.css` - only if landing-page tokens or shared utilities are truly needed
+- `vitest.config.ts` - only if extra test alias/setup changes are required
 
 ### Existing files to reference
 
@@ -43,11 +42,11 @@
 - `app/components/artist/FeaturedRelease.vue`
 - `app/components/artist/ReleasesGrid.vue`
 - `app/components/artist/SocialLinks.vue`
-- `app/pages/login.vue` - destination and message alignment for artist CTA flow
+- `app/pages/login.vue` - artist CTA destination and copy alignment
 
 ---
 
-## Task 1: Lock In Route Behavior and Landing Page Entry
+## Task 1: Lock In the Homepage Route Shell
 
 **Files:**
 - Create: `test/pages/index.test.ts`
@@ -61,14 +60,12 @@ import { mount } from '@vue/test-utils'
 import HomePage from '../../app/pages/index.vue'
 
 describe('HomePage', () => {
-  it('renders the landing page headline instead of a redirect shell', () => {
+  it('renders landing page content instead of a redirect shell', () => {
     const wrapper = mount(HomePage, {
       global: {
         stubs: {
           LandingHeader: true,
-          LandingHero: {
-            template: '<section>One page for your music</section>'
-          },
+          LandingHero: { template: '<section>One page for your music</section>' },
           LandingProofStrip: true,
           LandingFeatureGrid: true,
           LandingFanWalkthrough: true,
@@ -124,24 +121,80 @@ git commit -m "feat: add homepage landing page route shell"
 
 ---
 
-## Task 2: Add Landing Page Content Model and Header
+## Task 2: Define Public Example Route Strategy
 
 **Files:**
 - Create: `app/components/landing/landingContent.ts`
-- Create: `app/components/landing/LandingHeader.vue`
-- Test: `test/components/landing/LandingHeader.test.ts`
+- Create: `test/components/landing/landingContent.test.ts`
 
 - [ ] **Step 1: Write the failing test**
 
 ```ts
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
+import { landingContent } from '../../../app/components/landing/landingContent'
+
+describe('landingContent', () => {
+  it('keeps fan example routes public and separate from signup', () => {
+    expect(landingContent.nav.primaryCta.to).toBe('/login')
+    expect(landingContent.nav.secondaryCta.to).not.toBe('/login')
+    expect(landingContent.example.fallbackRoute).not.toBe('/login')
+  })
+})
+```
+
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `npm test -- test/components/landing/landingContent.test.ts`
+
+Expected: FAIL because the module does not exist.
+
+- [ ] **Step 3: Write minimal implementation**
+
+Create `landingContent.ts` with a real public route strategy:
+
+```ts
+export const landingContent = {
+  nav: {
+    brand: 'SoundLog',
+    primaryCta: { label: 'Create your page', to: '/login' },
+    secondaryCta: { label: 'See what fans see', to: '/artists/example' }
+  },
+  example: {
+    primaryRoute: '/artists/example',
+    fallbackRoute: '/artists/example-preview'
+  }
+}
+```
+
+Replace those route strings with the real canonical public route and real public fallback chosen during implementation. Do not use `/login` for the fan path.
+
+- [ ] **Step 4: Run test to verify it passes**
+
+Run: `npm test -- test/components/landing/landingContent.test.ts`
+
+Expected: PASS.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add app/components/landing/landingContent.ts test/components/landing/landingContent.test.ts
+git commit -m "feat: define landing page example route strategy"
+```
+
+---
+
+## Task 3: Add the Landing Header
+
+**Files:**
+- Create: `app/components/landing/LandingHeader.vue`
+- Create: `test/components/landing/LandingHeader.test.ts`
+
+- [ ] **Step 1: Write the failing test**
+
+```ts
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import LandingHeader from '../../../app/components/landing/LandingHeader.vue'
-
-vi.mock('#imports', async () => {
-  const actual = await vi.importActual('../../mocks/imports.ts')
-  return actual
-})
 
 describe('LandingHeader', () => {
   it('shows create-page and live-example actions for guests', () => {
@@ -157,25 +210,13 @@ describe('LandingHeader', () => {
 
 Run: `npm test -- test/components/landing/LandingHeader.test.ts`
 
-Expected: FAIL because component/module do not exist.
+Expected: FAIL because the component does not exist.
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create `landingContent.ts` with constants similar to:
-
-```ts
-export const landingContent = {
-  nav: {
-    brand: 'SoundLog',
-    primaryCta: { label: 'Create your page', to: '/login' },
-    secondaryCta: { label: 'See what fans see', to: '/example-artist' }
-  }
-}
-```
-
 Create `LandingHeader.vue` that:
 - renders brand name
-- renders example CTA and signup CTA
+- renders the public example CTA and signup CTA
 - uses `useSupabaseUser()` to conditionally show `Go to dashboard`
 
 - [ ] **Step 4: Run test to verify it passes**
@@ -187,17 +228,17 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add app/components/landing/landingContent.ts app/components/landing/LandingHeader.vue test/components/landing/LandingHeader.test.ts
-git commit -m "feat: add landing page header and content constants"
+git add app/components/landing/LandingHeader.vue test/components/landing/LandingHeader.test.ts
+git commit -m "feat: add landing page header"
 ```
 
 ---
 
-## Task 3: Build the Hero With Dual Audience CTAs
+## Task 4: Build the Hero With Dual Audience CTAs
 
 **Files:**
 - Create: `app/components/landing/LandingHero.vue`
-- Test: `test/components/landing/LandingHero.test.ts`
+- Create: `test/components/landing/LandingHero.test.ts`
 
 - [ ] **Step 1: Write the failing test**
 
@@ -220,22 +261,16 @@ describe('LandingHero', () => {
 
 Run: `npm test -- test/components/landing/LandingHero.test.ts`
 
-Expected: FAIL because component does not exist.
+Expected: FAIL because the component does not exist.
 
 - [ ] **Step 3: Write minimal implementation**
 
 Build `LandingHero.vue` using `@frontend-design` principles:
-- strong headline and short supporting copy
-- left-side copy / right-side preview on desktop
+- strong headline and concise supporting copy
+- side-by-side desktop composition
 - stacked mobile layout
-- two CTAs wired to `/login` and public example route
-- preview card that visually echoes `app/pages/[slug].vue` modules
-
-Use concrete copy such as:
-
-```vue
-<h1>One page for your music, your links, and the fans discovering both.</h1>
-```
+- two CTAs wired to `/login` and the public example route constant
+- preview card that visually echoes `app/pages/[slug].vue`
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -247,20 +282,20 @@ Expected: PASS.
 
 ```bash
 git add app/components/landing/LandingHero.vue test/components/landing/LandingHero.test.ts
-git commit -m "feat: add landing page hero with dual audience CTAs"
+git commit -m "feat: add landing page hero"
 ```
 
 ---
 
-## Task 4: Build Mid-Page Proof and Feature Sections
+## Task 5: Build the Proof Strip
 
 **Files:**
 - Create: `app/components/landing/LandingProofStrip.vue`
-- Create: `app/components/landing/LandingFeatureGrid.vue`
+- Modify: `test/pages/index.test.ts`
 
-- [ ] **Step 1: Write the failing page test**
+- [ ] **Step 1: Write the failing test**
 
-Update `test/pages/index.test.ts` to assert the homepage includes proof/feature copy:
+Add expectations to `test/pages/index.test.ts`:
 
 ```ts
 expect(wrapper.text()).toContain('One page for every release link')
@@ -271,17 +306,11 @@ expect(wrapper.text()).toContain('Built for discovery, not just redirects')
 
 Run: `npm test -- test/pages/index.test.ts`
 
-Expected: FAIL because the section content is not present yet.
+Expected: FAIL because the proof strip content is missing.
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create:
-- `LandingProofStrip.vue` with 3 short proof bullets
-- `LandingFeatureGrid.vue` with 3 artist-benefit cards
-
-Keep responsibilities separate:
-- proof = compact credibility
-- features = artist benefits
+Create `LandingProofStrip.vue` with 3 concise credibility/capability points.
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -292,48 +321,76 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add app/components/landing/LandingProofStrip.vue app/components/landing/LandingFeatureGrid.vue test/pages/index.test.ts
-git commit -m "feat: add landing page proof and feature sections"
+git add app/components/landing/LandingProofStrip.vue test/pages/index.test.ts
+git commit -m "feat: add landing page proof strip"
 ```
 
 ---
 
-## Task 5: Build the Fan Walkthrough and Example Preview
+## Task 6: Build the Feature Grid
+
+**Files:**
+- Create: `app/components/landing/LandingFeatureGrid.vue`
+- Modify: `test/pages/index.test.ts`
+
+- [ ] **Step 1: Write the failing test**
+
+Add expectations to `test/pages/index.test.ts`:
+
+```ts
+expect(wrapper.text()).toContain('Unified artist profile')
+expect(wrapper.text()).toContain('Fast updates without a developer')
+```
+
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: FAIL because the feature grid content is missing.
+
+- [ ] **Step 3: Write minimal implementation**
+
+Create `LandingFeatureGrid.vue` with 3 artist-benefit cards.
+
+- [ ] **Step 4: Run test to verify it passes**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: PASS.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add app/components/landing/LandingFeatureGrid.vue test/pages/index.test.ts
+git commit -m "feat: add landing page feature grid"
+```
+
+---
+
+## Task 7: Build the Fan Walkthrough
 
 **Files:**
 - Create: `app/components/landing/LandingFanWalkthrough.vue`
-- Create: `app/components/landing/LandingExamplePreview.vue`
-- Modify: `app/components/landing/landingContent.ts`
+- Modify: `test/pages/index.test.ts`
 
-- [ ] **Step 1: Write the failing page test**
+- [ ] **Step 1: Write the failing test**
 
 Add expectations to `test/pages/index.test.ts`:
 
 ```ts
 expect(wrapper.text()).toContain('Artist hero')
 expect(wrapper.text()).toContain('Featured release')
-expect(wrapper.text()).toContain('Explore an example')
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `npm test -- test/pages/index.test.ts`
 
-Expected: FAIL because the walkthrough/example preview content is missing.
+Expected: FAIL because the fan walkthrough content is missing.
 
 - [ ] **Step 3: Write minimal implementation**
 
-Implement:
-- `LandingFanWalkthrough.vue` with product-module labels borrowed from public artist page structure
-- `LandingExamplePreview.vue` with a public example CTA using a stable route constant from `landingContent.ts`
-
-Default example route strategy:
-
-```ts
-export const exampleArtistRoute = '/example-artist'
-```
-
-Do not point the fan CTA at `/login`.
+Create `LandingFanWalkthrough.vue` with public-artist-page module labels and preview blocks based on `app/pages/[slug].vue`.
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -344,39 +401,80 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add app/components/landing/LandingFanWalkthrough.vue app/components/landing/LandingExamplePreview.vue app/components/landing/landingContent.ts test/pages/index.test.ts
-git commit -m "feat: add landing page fan walkthrough and example preview"
+git add app/components/landing/LandingFanWalkthrough.vue test/pages/index.test.ts
+git commit -m "feat: add landing page fan walkthrough"
 ```
 
 ---
 
-## Task 6: Build Final CTA and Footer
+## Task 8: Build the Example Preview
+
+**Files:**
+- Create: `app/components/landing/LandingExamplePreview.vue`
+- Modify: `test/pages/index.test.ts`
+
+- [ ] **Step 1: Write the failing test**
+
+Add a destination assertion to `test/pages/index.test.ts`, for example:
+
+```ts
+expect(wrapper.find('[data-test="example-cta"]').attributes('href')).toBe('/artists/example')
+```
+
+Use the actual route constant chosen in Task 2.
+
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: FAIL because the example preview and CTA destination are missing.
+
+- [ ] **Step 3: Write minimal implementation**
+
+Create `LandingExamplePreview.vue` that:
+- shows a public example preview
+- uses `landingContent.example.primaryRoute`
+- degrades to `landingContent.example.fallbackRoute` if the primary route is unavailable in implementation
+
+- [ ] **Step 4: Run test to verify it passes**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: PASS.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add app/components/landing/LandingExamplePreview.vue test/pages/index.test.ts
+git commit -m "feat: add landing page example preview"
+```
+
+---
+
+## Task 9: Build the Final CTA
 
 **Files:**
 - Create: `app/components/landing/LandingFinalCta.vue`
-- Create: `app/components/landing/LandingFooter.vue`
+- Modify: `test/pages/index.test.ts`
 
-- [ ] **Step 1: Write the failing page test**
+- [ ] **Step 1: Write the failing test**
 
 Add expectations to `test/pages/index.test.ts`:
 
 ```ts
 expect(wrapper.text()).toContain('Create your page')
 expect(wrapper.text()).toContain('Explore an example')
-expect(wrapper.text()).toContain('SoundLog')
 ```
 
 - [ ] **Step 2: Run test to verify it fails**
 
 Run: `npm test -- test/pages/index.test.ts`
 
-Expected: FAIL because the bottom CTA/footer content is missing.
+Expected: FAIL because the final CTA section is missing.
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create:
-- `LandingFinalCta.vue` with repeated signup/example paths
-- `LandingFooter.vue` with compact product links and trust/privacy text
+Create `LandingFinalCta.vue` with a signup CTA and public example CTA.
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -387,22 +485,104 @@ Expected: PASS.
 - [ ] **Step 5: Commit**
 
 ```bash
-git add app/components/landing/LandingFinalCta.vue app/components/landing/LandingFooter.vue test/pages/index.test.ts
-git commit -m "feat: add landing page footer and closing CTA"
+git add app/components/landing/LandingFinalCta.vue test/pages/index.test.ts
+git commit -m "feat: add landing page final CTA"
 ```
 
 ---
 
-## Task 7: Polish Auth-Aware Behavior and Copy Alignment
+## Task 10: Build the Footer
+
+**Files:**
+- Create: `app/components/landing/LandingFooter.vue`
+- Modify: `test/pages/index.test.ts`
+
+- [ ] **Step 1: Write the failing test**
+
+Add expectations to `test/pages/index.test.ts`:
+
+```ts
+expect(wrapper.text()).toContain('SoundLog')
+expect(wrapper.text()).toContain('Privacy')
+```
+
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: FAIL because the footer is missing.
+
+- [ ] **Step 3: Write minimal implementation**
+
+Create `LandingFooter.vue` with compact product links and trust/privacy text.
+
+- [ ] **Step 4: Run test to verify it passes**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: PASS.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add app/components/landing/LandingFooter.vue test/pages/index.test.ts
+git commit -m "feat: add landing page footer"
+```
+
+---
+
+## Task 11: Add SEO and Accessibility Requirements
+
+**Files:**
+- Modify: `app/pages/index.vue`
+- Modify: `test/pages/index.test.ts`
+
+- [ ] **Step 1: Write the failing test**
+
+Add assertions such as:
+
+```ts
+expect(wrapper.findAll('h1')).toHaveLength(1)
+```
+
+If your test harness can support it cleanly, also assert that `useHead` is called with a meaningful title and description.
+
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: FAIL because semantic heading / metadata is not fully in place.
+
+- [ ] **Step 3: Write minimal implementation**
+
+Ensure the landing page has:
+- exactly one `h1`
+- meaningful `useHead({ title, meta })`
+- reduced-motion-safe custom motion behavior if motion is added
+
+- [ ] **Step 4: Run test to verify it passes**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: PASS.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add app/pages/index.vue test/pages/index.test.ts
+git commit -m "feat: add landing page SEO and accessibility metadata"
+```
+
+---
+
+## Task 12: Add Auth-Aware Header Behavior and Copy Alignment
 
 **Files:**
 - Modify: `app/components/landing/LandingHeader.vue`
 - Modify: `app/pages/login.vue`
-- Test: `test/components/landing/LandingHeader.test.ts`
+- Modify: `test/components/landing/LandingHeader.test.ts`
 
 - [ ] **Step 1: Write the failing auth-state test**
-
-Add a test like:
 
 ```ts
 it('shows Go to dashboard for authenticated users', () => {
@@ -423,7 +603,7 @@ Expected: FAIL if auth-aware content is not implemented yet.
 Ensure:
 - guests see signup and example actions
 - authenticated users also see a dashboard path
-- optional login-page subtitle tweak only if needed to stay aligned with landing-page promise
+- `app/pages/login.vue` copy only changes if needed to stay aligned with the landing page promise
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -440,38 +620,40 @@ git commit -m "feat: align landing page actions with auth state"
 
 ---
 
-## Task 8: Use Frontend-Design Quality Pass
+## Task 13: Apply Frontend-Design Polish
 
 **Files:**
 - Modify: `app/pages/index.vue`
 - Modify: `app/components/landing/*.vue`
 
-- [ ] **Step 1: Review current landing page against the spec build brief**
+- [ ] **Step 1: Write one quality-focused failing assertion**
 
-Check for:
-- non-generic hero composition
-- visual inheritance from `app/pages/[slug].vue`
-- modern product tone
-- both audience paths visible above the fold
+Extend `test/pages/index.test.ts` so the assembled page explicitly guarantees both audience paths are visible in the final hero.
 
-- [ ] **Step 2: Apply focused polish**
+- [ ] **Step 2: Run test to verify it fails**
+
+Run: `npm test -- test/pages/index.test.ts`
+
+Expected: FAIL before the polish change you are about to make.
+
+- [ ] **Step 3: Apply focused polish**
 
 Use `@frontend-design` principles to improve:
 - spacing and hierarchy
-- section rhythm
-- visual depth in preview cards
-- mobile layout quality
+- preview-card depth
+- mobile composition
 - CTA prominence
+- product/artist-page visual continuity
 
 Do not add new sections beyond the approved spec.
 
-- [ ] **Step 3: Verify no test regressions**
+- [ ] **Step 4: Verify no test regressions**
 
 Run: `npm test -- test/pages/index.test.ts test/components/landing/LandingHero.test.ts test/components/landing/LandingHeader.test.ts`
 
 Expected: PASS.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 5: Commit**
 
 ```bash
 git add app/pages/index.vue app/components/landing/
@@ -480,42 +662,54 @@ git commit -m "feat: polish landing page design"
 
 ---
 
-## Task 9: Full Verification
+## Task 14: Full Verification
 
 **Files:**
 - Test: `test/pages/index.test.ts`
-- Test: `test/components/landing/LandingHero.test.ts`
+- Test: `test/components/landing/landingContent.test.ts`
 - Test: `test/components/landing/LandingHeader.test.ts`
+- Test: `test/components/landing/LandingHero.test.ts`
+- Test: `test/pages/login.test.ts`
 
-- [ ] **Step 1: Run the landing page test set**
+- [ ] **Step 1: Run the landing page-focused test set**
 
 Run:
 
 ```bash
-npm test -- test/pages/index.test.ts test/components/landing/LandingHero.test.ts test/components/landing/LandingHeader.test.ts
+npm test -- test/pages/index.test.ts test/components/landing/landingContent.test.ts test/components/landing/LandingHeader.test.ts test/components/landing/LandingHero.test.ts
 ```
 
 Expected: PASS.
 
-- [ ] **Step 2: Run the full test suite**
+- [ ] **Step 2: Run explicit login preservation test**
+
+Run:
+
+```bash
+npm test -- test/pages/login.test.ts
+```
+
+Expected: PASS.
+
+- [ ] **Step 3: Run the full test suite**
 
 Run: `npm test`
 
 Expected: PASS.
 
-- [ ] **Step 3: Run typecheck**
+- [ ] **Step 4: Run typecheck**
 
 Run: `npm run typecheck`
 
 Expected: PASS.
 
-- [ ] **Step 4: Run production build**
+- [ ] **Step 5: Run production build**
 
 Run: `npm run build`
 
 Expected: PASS.
 
-- [ ] **Step 5: Manual verify the routes**
+- [ ] **Step 6: Manually verify routes**
 
 Check:
 - `/` shows the new landing page
@@ -523,12 +717,14 @@ Check:
 - example CTA points to a public route
 - authenticated header state shows dashboard path
 
-- [ ] **Step 6: Commit any last documentation or copy-only changes**
+- [ ] **Step 7: Commit only if verification produced changes**
 
 ```bash
-git add README.md app/pages/index.vue app/components/landing/ test/
+git add app/pages/index.vue app/components/landing/ test/ README.md
 git commit -m "test: verify landing page implementation"
 ```
+
+Skip this step if no files changed during verification.
 
 ---
 
@@ -538,4 +734,4 @@ git commit -m "test: verify landing page implementation"
 2. Keep landing-page-specific components in `app/components/landing/`.
 3. Reuse structure cues from the artist page, but do not import artist-page components directly unless they truly fit the landing experience.
 4. Do not send fan/example traffic to `/login`; keep it public.
-5. If a stable live example route does not yet exist, create a clearly named temporary public route constant and wire all example CTAs through that single source of truth.
+5. Choose a real canonical public example route and a real public fallback route before wiring CTAs.
